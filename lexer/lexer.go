@@ -77,29 +77,32 @@ func (l *Lexer) Exec() { // TODO: Return error
 
 // Executes a single step, called by the Exec loop, but does not loop itself
 func (l *Lexer) execStep() {
-	// If buffer tokenType is unknown, do type recognition
 	if l.bufferTokenType == token.UNKNOWN {
-		switch l.currentChar {
-		case ' ': // TODO: Better handle whitespace
-			return
-		case '"': // If the current char is ", we have encountered a string
-			l.bufferTokenType = token.STRING
-			return
-		default:
-			panic("Should not reach this code (1)") // TODO: Return error message somehow
-		}
+		l.execStepUnknownTokenType()
+	} else {
+		l.execStepKnownTokenType()
 	}
+}
 
-	// Buffer is filled, so continue until we encounter the end of the current Token content
+func (l *Lexer) execStepUnknownTokenType() {
+	switch l.currentChar {
+	case ' ': // TODO: Better handle whitespace // TODO: Add l.skipWhitespace()
+		return
+	case '"': // If the current char is ", we have encountered a string
+		l.bufferTokenType = token.STRING
+		return
+	default:
+		panic("Should not reach this code (1)") // TODO: Return error message somehow
+	}
+}
+
+func (l *Lexer) execStepKnownTokenType() {
 	switch l.bufferTokenType {
 	case token.STRING:
-		// End of string
-		if l.currentChar == '"' {
+		if l.currentChar == '"' { // End of string
 			l.finishBuffer()
 		} else {
 			l.currentCharToBuffer()
 		}
-		return
 	}
-	panic("Should not reach this code (2)") // TODO: Return error message somehow
 }
