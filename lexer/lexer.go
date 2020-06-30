@@ -87,10 +87,11 @@ func (l *Lexer) execStep() {
 func (l *Lexer) execStepUnknownTokenType() {
 	switch l.currentChar {
 	case ' ': // TODO: Better handle whitespace // TODO: Add l.skipWhitespace()
-		return
 	case '"': // If the current char is ", we have encountered a string
 		l.bufferTokenType = token.STRING
-		return
+	case ';':
+		l.bufferTokenType = token.SEMICOLON
+		l.finishBuffer()
 	default:
 		panic("Should not reach this code (1)") // TODO: Return error message somehow
 	}
@@ -104,5 +105,8 @@ func (l *Lexer) execStepKnownTokenType() {
 		} else {
 			l.currentCharToBuffer()
 		}
+	default:
+		panic("Should not reach this code (2)") // TODO: Return error message somehow
 	}
+
 }

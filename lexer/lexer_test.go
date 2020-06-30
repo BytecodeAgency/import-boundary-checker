@@ -15,6 +15,7 @@ func TestLexer_SingleLine(t *testing.T) {
 		expected []lexer.Result
 	}{
 		{`"test"`, []lexer.Result{{token.STRING, "test"}}},
+		{`"test";`, []lexer.Result{{token.STRING, "test"}, {token.SEMICOLON, ""}}},
 		//{`LANG`, []lexer.Result{{token.KEYWORD_LANG, ""}}},
 		//{`LANG "Typescript"`, []lexer.Result{{token.KEYWORD_LANG, "Typescript"}}},
 	}
