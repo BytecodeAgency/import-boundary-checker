@@ -15,14 +15,27 @@ func TestLexer_SingleLine(t *testing.T) {
 		expected []lexer.Result
 	}{
 		{`"test"`, []lexer.Result{{token.STRING, "test"}}},
-		{`"test";`, []lexer.Result{{token.STRING, "test"}, {token.SEMICOLON, ""}}},
-		//{`LANG`, []lexer.Result{{token.KEYWORD_LANG, ""}}},
-		//{`LANG "Typescript"`, []lexer.Result{{token.KEYWORD_LANG, "Typescript"}}},
+		{`"test";`, []lexer.Result{
+			{token.STRING, "test"},
+			{token.SEMICOLON, ""}}},
+		{`"test"         ;`, []lexer.Result{
+			{token.STRING, "test"},
+			{token.SEMICOLON, ""}}},
+		{`"test1","test2";`, []lexer.Result{
+			{token.STRING, "test1"},
+			{token.COMMA, ""},
+			{token.STRING, "test2"},
+			{token.SEMICOLON, ""}}},
+		{`LANG "Typescript";`, []lexer.Result{
+			{token.KEYWORD_LANG, ""},
+			{token.STRING, "Typescript"},
+			{token.SEMICOLON, ""}}},
 	}
 	for _, test := range tests {
 		l := lexer.New(test.input)
 		l.Exec()
-		res := l.Result()
+		res, errs := l.Result()
+		assert.Empty(t, errs)
 		assert.Equal(t, test.expected, res)
 	}
 }
