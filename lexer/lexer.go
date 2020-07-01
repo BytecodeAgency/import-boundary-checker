@@ -3,14 +3,11 @@ package lexer
 import (
 	"fmt"
 
+	"git.bytecode.nl/foss/import-boundry-checker/keyword"
 	"git.bytecode.nl/foss/import-boundry-checker/token"
 )
 
-const DEBUG = true // TODO: Support flag `-debug`
-
-const (
-	KEYWORD_LANG = "LANG"
-)
+const DEBUG = false // TODO: Support flag `-debug`
 
 type Result struct {
 	Token    token.Token
@@ -130,7 +127,6 @@ func (l *Lexer) execStepUnknownTokenType() {
 }
 
 func (l *Lexer) execStepKnownTokenType() {
-	fmt.Println("HERE0")
 	switch l.bufferTokenType {
 	case token.STRING:
 		if l.currentChar == '"' { // End of string
@@ -151,10 +147,13 @@ func (l *Lexer) execStepKnownTokenType() {
 }
 
 func (l *Lexer) recognizeKeywordFromBuffer() {
-	fmt.Printf("CALLING RECOG WITH %s WANT %s", string(l.buffer), KEYWORD_LANG)
 	switch string(l.buffer) {
-	case KEYWORD_LANG:
+	case keyword.Lang:
 		l.bufferTokenType = token.KEYWORD_LANG
+	case keyword.ImportRule:
+		l.bufferTokenType = token.KEYWORD_IMPORTRULE
+	case keyword.CannotImport:
+		l.bufferTokenType = token.KEYWORD_CANNOTIMPORT
 	default:
 		l.logErrorAtPosition("recognizeKeywordFromBuffer")
 	}

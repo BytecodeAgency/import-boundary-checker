@@ -9,7 +9,7 @@ import (
 	"git.bytecode.nl/foss/import-boundry-checker/token"
 )
 
-func TestLexer_SingleLine(t *testing.T) {
+func TestLexer_SingleLine_Correct(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected []lexer.Result
@@ -30,6 +30,17 @@ func TestLexer_SingleLine(t *testing.T) {
 			{token.KEYWORD_LANG, ""},
 			{token.STRING, "Typescript"},
 			{token.SEMICOLON, ""}}},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, []lexer.Result{
+			{token.KEYWORD_LANG, ""},
+			{token.STRING, "Typescript"},
+			{token.SEMICOLON, ""},
+			{token.KEYWORD_IMPORTRULE, ""},
+			{token.STRING, "some/module/path"},
+			{token.KEYWORD_CANNOTIMPORT, ""},
+			{token.STRING, "other/module/path/1"},
+			{token.COMMA, ""},
+			{token.STRING, "other/module/path/2"},
+			{token.SEMICOLON, ""}}},
 	}
 	for _, test := range tests {
 		l := lexer.New(test.input)
@@ -37,5 +48,28 @@ func TestLexer_SingleLine(t *testing.T) {
 		res, errs := l.Result()
 		assert.Empty(t, errs)
 		assert.Equal(t, test.expected, res)
+	}
+}
+
+func TestLexer_SingleLine_Failure(t *testing.T) {
+	tests := []struct {
+		input     string
+		shouldErr bool
+	}{
+		{`LANG "Typescript";`, false},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, false},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" INVALIDKEYWORD "other/module/path/1", "other/module/path/2";`, true},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CannotImport "other/module/path/1", "other/module/path/2";`, true},
+		{`LANG "Typescript"; importrule "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, true},
+	}
+	for _, test := range tests {
+		l := lexer.New(test.input)
+		l.Exec()
+		_, errs := l.Result()
+		if test.shouldErr {
+			assert.NotEmpty(t, errs)
+		} else {
+			assert.Empty(t, errs)
+		}
 	}
 }
