@@ -1,0 +1,10 @@
+LANG "Go";
+
+IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
+CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+
+IMPORTRULE
+  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+CANNOTIMPORT
+	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
