@@ -6,14 +6,12 @@ cache:
 
 build:
   before_script:
-    - cd platform-backend
     - export GO111MODULE=on
   script:
     - go build .
 
 test:
   before_script:
-    - cd platform-backend
     - export GO111MODULE=on
     - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
     - golangci-lint --version
