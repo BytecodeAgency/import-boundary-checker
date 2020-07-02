@@ -21,16 +21,15 @@ func TestLexer_SingleLine_Correct(t *testing.T) {
 		{`"test"         ;`, []lexer.Result{
 			{token.STRING, "test"},
 			{token.SEMICOLON, ""}}},
-		{`"test1","test2";`, []lexer.Result{
+		{`"test1""test2";`, []lexer.Result{
 			{token.STRING, "test1"},
-			{token.COMMA, ""},
 			{token.STRING, "test2"},
 			{token.SEMICOLON, ""}}},
 		{`LANG "Typescript";`, []lexer.Result{
 			{token.KEYWORD_LANG, ""},
 			{token.STRING, "Typescript"},
 			{token.SEMICOLON, ""}}},
-		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, []lexer.Result{
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, []lexer.Result{
 			{token.KEYWORD_LANG, ""},
 			{token.STRING, "Typescript"},
 			{token.SEMICOLON, ""},
@@ -38,7 +37,6 @@ func TestLexer_SingleLine_Correct(t *testing.T) {
 			{token.STRING, "some/module/path"},
 			{token.KEYWORD_CANNOTIMPORT, ""},
 			{token.STRING, "other/module/path/1"},
-			{token.COMMA, ""},
 			{token.STRING, "other/module/path/2"},
 			{token.SEMICOLON, ""}}},
 	}
@@ -57,10 +55,14 @@ func TestLexer_SingleLine_Failure(t *testing.T) {
 		shouldErr bool
 	}{
 		{`LANG "Typescript";`, false},
-		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, false},
-		{`LANG "Typescript"; IMPORTRULE "some/module/path" INVALIDKEYWORD "other/module/path/1", "other/module/path/2";`, true},
-		{`LANG "Typescript"; IMPORTRULE "some/module/path" CannotImport "other/module/path/1", "other/module/path/2";`, true},
-		{`LANG "Typescript"; importrule "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, true},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, false},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" INVALIDKEYWORD "other/module/path/1" "other/module/path/2";`, true},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CannotImport "other/module/path/1" "other/module/path/2";`, true},
+		{`LANG "Typescript"; importrule "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, true},
+		{`"test1", "test2";`, true},
+		{`"test1" "test2";`, false},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, true},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, false},
 	}
 	for _, test := range tests {
 		l := lexer.New(test.input)

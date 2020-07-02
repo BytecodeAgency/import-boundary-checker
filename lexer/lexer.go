@@ -84,7 +84,7 @@ func (l *Lexer) Format() string {
 // Recursive loop that keeps running until we have reached the end of the input
 func (l *Lexer) Exec() {
 	if DEBUG {
-		fmt.Printf("Start Exec with %s\n", l.Format())
+		fmt.Printf("Start Exec with %s\n", l.Format()) // TODO: Add trace functionality (log in struct)
 	}
 	l.execStep()
 	done := l.next()
@@ -114,9 +114,6 @@ func (l *Lexer) execStepUnknownTokenType() {
 		}
 	case '"': // If the current char is ", we have encountered a string
 		l.bufferTokenType = token.STRING
-	case ',':
-		l.bufferTokenType = token.COMMA
-		l.finishBuffer()
 	case ';':
 		l.bufferTokenType = token.SEMICOLON
 		l.finishBuffer()

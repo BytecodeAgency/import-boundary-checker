@@ -18,18 +18,18 @@ LANG "[Typescript/Go]";
 IMPORTRULE "path/to/module" CANNOTIMPORT "/path/to/other/module";
 ```
 
-* Multiple forbidden imports can be specified by using a comma as a separator
+* Multiple forbidden imports can be specified by using whitespace as separator
 
 ```
-IMPORTRULE "path/to/module" CANNOTIMPORT "/path/to/other/module1", "/path/to/other/module2";
+IMPORTRULE "path/to/module" CANNOTIMPORT "/path/to/other/module1" "/path/to/other/module2";
 ```
 * Line endings can be used to make the file more readable as you please (whitespace is ignored)
 
 ```
 IMPORTRULE "path/to/module"
 CANNOTIMPORT
-    "/path/to/other/module1",
-    "/path/to/other/module2",
+    "/path/to/other/module1"
+    "/path/to/other/module2"
     "/path/to/other/module3";
 ```
 
@@ -38,13 +38,14 @@ CANNOTIMPORT
 ```
 IMPORTRULE "path/to/module"
 CANNOTIMPORT
-    "/path/to/other/module",
+    "/path/to/other/module"
     "/path/to/other/module/sub";
 ```
 
 ## Wishlist for configuration
 
 * Support comments
+* Support multiple entries for `IMPORTRULE`
 * Support `CANNOTIMPORT "*";` or `CANNOTIMPORT;` to never allow any imports
 * Support "CANONLYIMPORT" (useful for domain/entity layers)
 * Support exclusions for rules (usecase: prohibit `/some/module` but allow `/some/module/mocks`)
@@ -61,6 +62,6 @@ CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
 
 IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
 CANNOTIMPORT
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
     "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
 ```
