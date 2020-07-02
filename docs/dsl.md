@@ -1,8 +1,4 @@
-# Import Boundry Checker DSL
-
-_By Bytecode Digital Agency B.V._
-
-## DSL definition
+# DSL definition
 
 * Only one language at a time is supported
 * Statements should be closed with a semicolon (no implicit statement endings like in Go or JS)
