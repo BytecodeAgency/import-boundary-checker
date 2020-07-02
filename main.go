@@ -48,8 +48,6 @@ CANNOTIMPORT
 	}
 }
 
-
-
 func doLex(input string) []lexer.Result {
 	logIfVerbose("Building lexer")
 	lex := lexer.New(input)

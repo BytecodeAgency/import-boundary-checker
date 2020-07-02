@@ -8,12 +8,12 @@ var stacktrace []string
 
 // TODO: Add better (colorized) logger
 func log(line string) {
-	stacktrace = append(stacktrace, "INFO: " + line)
+	stacktrace = append(stacktrace, "INFO: "+line)
 	fmt.Println(line)
 }
 
 func logIfVerbose(line string) {
-	stacktrace = append(stacktrace, "VERBOSE: " + line)
+	stacktrace = append(stacktrace, "VERBOSE: "+line)
 	if verbose {
 		log(line)
 	}
