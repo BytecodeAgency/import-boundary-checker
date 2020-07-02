@@ -1,7 +1,9 @@
 package keyword
 
+type Keyword string
+
 const (
-	Lang         = "LANG"
-	ImportRule   = "IMPORTRULE"
-	CannotImport = "CANNOTIMPORT"
+	Lang         = Keyword("LANG")
+	ImportRule   = Keyword("IMPORTRULE")
+	CannotImport = Keyword("CANNOTIMPORT")
 )

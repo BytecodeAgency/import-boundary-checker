@@ -152,11 +152,11 @@ func (l *Lexer) execStepKnownTokenType() {
 
 func (l *Lexer) recognizeKeywordFromBuffer() {
 	switch string(l.buffer) {
-	case keyword.Lang:
+	case string(keyword.Lang):
 		l.bufferTokenType = token.KEYWORD_LANG
-	case keyword.ImportRule:
+	case string(keyword.ImportRule):
 		l.bufferTokenType = token.KEYWORD_IMPORTRULE
-	case keyword.CannotImport:
+	case string(keyword.CannotImport):
 		l.bufferTokenType = token.KEYWORD_CANNOTIMPORT
 	default:
 		l.logErrorAtPosition("recognizeKeywordFromBuffer")
