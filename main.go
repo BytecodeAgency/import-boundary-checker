@@ -27,7 +27,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	logIfVerbose(fmt.Sprintf("verbose mode set to %b and using configPath %s", verbose, *configPath))
+	logIfVerbose(fmt.Sprintf("verbose mode set to %t and using configPath %s", verbose, *configPath))
 
 	c := getConfigString(*configPath)
 	l := doLex(c)
