@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestParser_Parse(t *testing.T) {
+func TestParser_Parse_Correct(t *testing.T) {
 	tests := []struct {
 		input         string
 		expectedLang  parser.Language
@@ -47,5 +47,48 @@ CANNOTIMPORT
 		assert.Empty(t, p.Errors)
 		assert.Equal(t, test.expectedLang, p.Lang)
 		assert.Equal(t, test.expectedRules, p.Rules)
+	}
+}
+
+func TestParser_Parse_Incorrect(t *testing.T) {
+	incorrectInputs := []string{
+		// Invalid language
+		`LANG "COBOL";
+IMPORTRULE "some/module"
+CANNOTIMPORT "some/other/module";`,
+
+		// Multiple importrules
+		`LANG "Go";
+IMPORTRULE "some/module1" "some/module2"
+CANNOTIMPORT "some/other/module";`,
+
+		// Not finishing the importrule
+		`LANG "Go";
+IMPORTRULE "some/module1" "some/module2";`,
+
+		// Not setting the importrule, only the cannotimports
+		`LANG "Go";
+IMPORTRULE
+CANNOTIMPORT "some/module2";`,
+
+		// Not setting the language
+		`IMPORTRULE "some/module"
+CANNOTIMPORT "some/module2";`,
+
+		// Only setting the language, and no importrules
+		`LANG "Go";`,
+	}
+
+	for _, input := range incorrectInputs {
+		// Lexer
+		l := lexer.New(input)
+		l.Exec()
+		res, errs := l.Result()
+		assert.Empty(t, errs)
+
+		// Parser
+		p := parser.New(res)
+		p.Parse()
+		assert.NotEmpty(t, p.Errors)
 	}
 }

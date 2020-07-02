@@ -11,6 +11,7 @@ import (
 type Language string
 
 const (
+	LangUnset      = Language("")
 	LangGo         = Language("Go")
 	LangTypescript = Language("Typescript")
 )
@@ -35,6 +36,7 @@ type Parser struct {
 func New(input []lexer.Result) Parser {
 	return Parser{
 		input: input,
+		Lang:  LangUnset,
 	}
 }
 
@@ -65,11 +67,23 @@ func (p *Parser) Parse() {
 			p.saveStringToParserData(lexRes.Contents)
 		}
 	}
+	if p.Lang == LangUnset {
+		p.logError("language has not been set")
+	}
+	if len(p.Rules) == 0 {
+		p.logError("no rules have been given")
+	}
 }
 
 func (p *Parser) endExpression() {
+	// Setting the language should not save the rule, so return
 	if p.currentKeyword == keyword.Lang {
-		return // Setting the language should not save the struct
+		return
+	}
+
+	// Validate that data for the rule is set
+	if p.currentRule.RuleFor == "" || len(p.currentRule.CannotImport) == 0 {
+		p.logError("not all required rule data is set")
 	}
 	p.Rules = append(p.Rules, p.currentRule)
 	p.currentRule = Rule{} // Reset to default values
@@ -78,6 +92,9 @@ func (p *Parser) endExpression() {
 func (p *Parser) saveStringToParserData(ruleContents string) {
 	switch p.currentKeyword {
 	case keyword.ImportRule:
+		if p.currentRule.RuleFor != "" {
+			p.logError(fmt.Sprintf("RuleFor has already been set to %s", p.currentRule.RuleFor))
+		}
 		p.currentRule.RuleFor = ruleContents
 	case keyword.CannotImport:
 		p.currentRule.CannotImport = append(p.currentRule.CannotImport, ruleContents)
@@ -90,7 +107,7 @@ func (p *Parser) saveStringToParserData(ruleContents string) {
 			p.Lang = LangGo
 		case LangTypescript:
 			p.Lang = LangTypescript
-		default: // TODO: Test
+		default:
 			p.logError(fmt.Sprintf("language '%s' is not supported", ruleContents))
 		}
 	}
