@@ -16,27 +16,27 @@ type Result struct {
 
 type Lexer struct {
 	// Input and result
-	input  []rune
+	input  []byte
 	result []Result
 	errors []error
 
 	// Intermediate values
-	buffer          []rune
+	buffer          []byte
 	bufferTokenType token.Token
 	position        int
-	currentChar     rune
-	nextChar        rune
+	currentChar     byte
+	nextChar        byte
 }
 
 func New(input string) Lexer {
 	return Lexer{
-		input:           []rune(input),
+		input:           []byte(input),
 		result:          []Result{},
-		buffer:          []rune{},
+		buffer:          []byte{},
 		bufferTokenType: token.UNSET,
 		position:        0,
-		currentChar:     rune(input[0]),
-		nextChar:        rune(input[1]),
+		currentChar:     input[0],
+		nextChar:        input[1],
 	}
 }
 
@@ -67,12 +67,12 @@ func (l *Lexer) currentCharToBuffer() {
 
 func (l *Lexer) finishBuffer() {
 	l.result = append(l.result, Result{l.bufferTokenType, string(l.buffer)})
-	l.buffer = []rune{}
+	l.buffer = []byte{}
 	l.bufferTokenType = token.UNSET
 }
 
 func (l *Lexer) logErrorAtPosition(errorLocation string) {
-	err := fmt.Errorf("could not parse %q (next char %q) at position %d, with buffer %q and tokentype '%s' (error location: %s)", l.currentChar, l.nextChar, l.position, l.buffer, l.bufferTokenType, errorLocation)
+	err := fmt.Errorf("could not parse %q (next char %q) at position %d, with buffer %s and tokentype '%s' (error location: %s)", l.currentChar, l.nextChar, l.position, string(l.buffer), l.bufferTokenType, errorLocation)
 	l.errors = append(l.errors, err)
 }
 
@@ -84,7 +84,7 @@ func (l *Lexer) Format() string {
 // Recursive loop that keeps running until we have reached the end of the input
 func (l *Lexer) Exec() {
 	if DEBUG {
-		fmt.Printf("Start Exec with %s\n", l.Format()) // TODO: Add trace functionality (log in struct)
+		fmt.Printf("Start Exec with %s\n", l.Format()) // TODO: Add trace functionality (log in struct?)
 	}
 	l.execStep()
 	done := l.next()
@@ -106,12 +106,18 @@ func (l *Lexer) execStep() {
 	}
 }
 
+func isWhitespace(char byte) bool {
+	return char == ' ' || char == '\n' || char == '\t' || char == '\r'
+}
+
 func (l *Lexer) execStepUnknownTokenType() {
+	// Ignore all whitespace
+	if isWhitespace(l.currentChar) {
+		return // l.next() is called in l.Exec() after returning
+	}
+
+	// Recognize the type
 	switch l.currentChar {
-	case ' ': // TODO: Add l.skipWhitespace()
-		for l.currentChar != ' ' {
-			l.next()
-		}
 	case '"': // If the current char is ", we have encountered a string
 		l.bufferTokenType = token.STRING
 	case ';':
@@ -132,7 +138,7 @@ func (l *Lexer) execStepKnownTokenType() {
 			l.currentCharToBuffer()
 		}
 	case token.UNKNOWN: // In current version, can only be keyword
-		if l.currentChar == ' ' { // End of keyword
+		if isWhitespace(l.currentChar) { // End of keyword
 			l.recognizeKeywordFromBuffer()
 			l.finishBuffer()
 		} else {
@@ -154,5 +160,5 @@ func (l *Lexer) recognizeKeywordFromBuffer() {
 	default:
 		l.logErrorAtPosition("recognizeKeywordFromBuffer")
 	}
-	l.buffer = []rune{}
+	l.buffer = []byte{}
 }
