@@ -2,7 +2,9 @@ package main
 
 import "fmt"
 
-var stacktrace []string // TODO: Add support for logging from Lexer and Parser
+// TODO: Create standardized logging system
+// TODO: Add support for logging from Lexer and Parser
+var stacktrace []string
 
 // TODO: Add better (colorized) logger
 func log(line string) {

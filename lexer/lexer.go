@@ -12,7 +12,6 @@ var DEBUG = false
 
 func init() {
 	flag.BoolVar(&DEBUG, "debug_lexer", false, "Enable debugging for lexer")
-	flag.Parse()
 }
 
 type Result struct {

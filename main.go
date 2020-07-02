@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"git.bytecode.nl/foss/import-boundry-checker/lexer"
 	"git.bytecode.nl/foss/import-boundry-checker/parser"
@@ -16,7 +17,13 @@ func main() {
 	// CLI flags
 	flag.BoolVar(&verbose, "verbose", false, "Enable verbose output of the main function (does not enable debugging for sub packages)")
 	configPath := flag.String("config", "TODO", "Configuration path to be used when building import rule set")
+	printHelp := flag.Bool("help", false, "Print CLI usage information")
 	flag.Parse()
+
+	if *printHelp {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
 
 	logIfVerbose(fmt.Sprintf("verbose mode set to %b and using configPath %s", verbose, *configPath))
 

@@ -15,7 +15,6 @@ var DEBUG = false
 
 func init() {
 	flag.BoolVar(&DEBUG, "debug_parser", false, "Enable debugging for parser")
-	flag.Parse()
 }
 
 const (
