@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"flag"
 	"fmt"
 
 	"git.bytecode.nl/foss/import-boundry-checker/keyword"
@@ -9,6 +10,13 @@ import (
 )
 
 type Language string
+
+var DEBUG = false
+
+func init() {
+	flag.BoolVar(&DEBUG, "debug_parser", false, "Enable debugging for parser")
+	flag.Parse()
+}
 
 const (
 	LangUnset      = Language("")
@@ -47,6 +55,10 @@ func (p *Parser) logError(details string) {
 }
 
 func (p *Parser) Parse() {
+	if DEBUG {
+		fmt.Printf("starting the parsing of %+v", p.input)
+	}
+
 	for _, lexRes := range p.input {
 		switch lexRes.Token {
 
@@ -65,6 +77,15 @@ func (p *Parser) Parse() {
 		// Handle string input, save to location based on currentKeyword
 		case token.STRING:
 			p.saveStringToParserData(lexRes.Contents)
+
+		// Should not reach this code
+		default:
+			p.logError(fmt.Sprintf("received unsupported token %s with contents %s", lexRes.Token, lexRes.Contents))
+		}
+
+		if DEBUG {
+			fmt.Printf("after parsing %s with contents %s, got currentKeyword %s, currentRule %s with lang %s and rules %+v and errors %s",
+				lexRes.Token, lexRes.Contents, p.currentKeyword, p.currentRule, p.Lang, p.Rules, p.Errors)
 		}
 	}
 	if p.Lang == LangUnset {
@@ -72,6 +93,11 @@ func (p *Parser) Parse() {
 	}
 	if len(p.Rules) == 0 {
 		p.logError("no rules have been given")
+	}
+
+	if DEBUG {
+		fmt.Printf("after parsing, got currentKeyword %s, currentRule %s with lang %s and rules %+v and errors %s",
+			p.currentKeyword, p.currentRule, p.Lang, p.Rules, p.Errors)
 	}
 }
 

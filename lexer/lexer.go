@@ -1,13 +1,19 @@
 package lexer
 
 import (
+	"flag"
 	"fmt"
 
 	"git.bytecode.nl/foss/import-boundry-checker/keyword"
 	"git.bytecode.nl/foss/import-boundry-checker/token"
 )
 
-const DEBUG = false // TODO: Support flag `-debug`
+var DEBUG = false
+
+func init() {
+	flag.BoolVar(&DEBUG, "debug_lexer", false, "Enable debugging for lexer")
+	flag.Parse()
+}
 
 type Result struct {
 	Token    token.Token
