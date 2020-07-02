@@ -40,6 +40,8 @@ CANNOTIMPORT
 
 ## Wishlist for configuration
 
+* Support `DIRECTORY "src";` to define in which directories to run the application (where to start the file/dir walker)
+* Support `EXTENSIONS "tsx" "ts"` to define which extensions to include when checking
 * Support comments
 * Support multiple entries for `IMPORTRULE`
 * Support `CANNOTIMPORT "*";` or `CANNOTIMPORT;` to never allow any imports
