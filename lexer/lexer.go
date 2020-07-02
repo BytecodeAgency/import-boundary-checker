@@ -47,7 +47,7 @@ func (l Lexer) Result() ([]Result, []error) {
 func (l *Lexer) next() (done bool) {
 	// Return if we are at the end of the input
 	if l.position+1 == len(l.input) {
-		return true
+		return false
 	}
 
 	// Increment position and set characters
@@ -58,7 +58,7 @@ func (l *Lexer) next() (done bool) {
 	} else {
 		l.nextChar = 0
 	}
-	return false
+	return true
 }
 
 func (l *Lexer) currentCharToBuffer() {
@@ -84,17 +84,18 @@ func (l *Lexer) Format() string {
 // Recursive loop that keeps running until we have reached the end of the input
 func (l *Lexer) Exec() {
 	if DEBUG {
-		fmt.Printf("Start Exec with %s\n", l.Format()) // TODO: Add trace functionality (log in struct?)
+		fmt.Printf("Called Exec with %s\n", l.Format()) // TODO: Add trace functionality (log in struct?)
 	}
-	l.execStep()
-	done := l.next()
-	if done {
+	l.execStep()   // Call l.execStep once to handle the first character, then enter into loop to finish the tokenization
+	for l.next() { // l.next() returns true when should continue, false when done
 		if DEBUG {
-			fmt.Printf("Done Exec with %s\n", l.Format())
+			fmt.Printf("Doing exepStep with %s\n", l.Format())
 		}
-		return
+		l.execStep()
 	}
-	l.Exec()
+	if DEBUG {
+		fmt.Printf("Done Exec with %s\n", l.Format())
+	}
 }
 
 // Executes a single step, called by the Exec loop, but does not loop itself
