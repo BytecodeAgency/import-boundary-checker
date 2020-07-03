@@ -45,7 +45,7 @@ func NewUserDomainInstance(interactor interactors.DomainInteractor) (DomainInsta
 	validate := validator.New()
 	err := validate.Struct(domain)
 	return domain, err
-}`, []string{"github.com/bytecodeagency/typings/entities", "github.com/bytecodeagency/typings/interactors", "github.com/go-playground/validator/v10"}},
+}`, []string{"github.com/bytecodeagency/proj/typings/entities", "github.com/bytecodeagency/typings/interactors", "github.com/go-playground/validator/v10"}},
 		{`package sometest
 
 import "github.com/bytecodeagency/typings/entities"
