@@ -27,7 +27,7 @@ func ExtractForSourceFile(source string) []string {
 		fmt.Printf("%+v", imp.Path)
 		if imp.Path != nil {
 			p := *imp.Path
-			importLine := strings.Replace(p.Value, "\"", "", -1)
+			importLine := strings.ReplaceAll(p.Value, "\"", "")
 			imports = append(imports, importLine)
 		}
 	}
