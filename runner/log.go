@@ -12,13 +12,6 @@ func log(line string) {
 	fmt.Println(line)
 }
 
-func logIfVerbose(line string) {
-	stacktrace = append(stacktrace, "VERBOSE: "+line)
-	if verbose {
-		log(line)
-	}
-}
-
 func prettyprintErrs(errs []error) string {
 	var errStr string
 	for _, err := range errs {

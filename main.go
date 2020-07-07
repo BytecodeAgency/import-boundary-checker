@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"git.bytecode.nl/foss/import-boundry-checker/runner"
@@ -14,7 +15,13 @@ import (
 func main() {
 	// CLI flags
 	configPath := flag.String("config", ".importrules", "Configuration path to be used when building import rule set")
+	printHelp := flag.Bool("help", false, "Print CLI usage information")
 	flag.Parse()
+
+	if *printHelp {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
 
 	c := getConfigString(*configPath)
 	runner.Run(c)
