@@ -56,6 +56,26 @@ CANNOTIMPORT
 						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
 						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
 			}},
+		{`LANG "Go";
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+
+IMPORTRULE "[IMPORTBASE]/typings/entities"
+CANNOTIMPORT "[IMPORTBASE]";
+
+IMPORTRULE "[IMPORTBASE]/domain"
+CANNOTIMPORT
+	"[IMPORTBASE]/infrastructure"
+    "[IMPORTBASE]/data";`,
+			"Go",
+			"git.bytecode.nl/single-projects/youngpwr/platform-backend",
+			[]parser.Rule{
+				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
+					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
+				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain",
+					[]string{
+						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
+						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
+			}},
 	}
 
 	for _, test := range tests {

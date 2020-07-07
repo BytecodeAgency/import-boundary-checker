@@ -46,6 +46,24 @@ CANNOTIMPORT
     "/path/to/other/module/sub";
 ```
 
+* When defining import paths, you can use the `[IMPORTBASE]` in your string, that will later be replaced with the actual importbase, for example, the following two snippets will yield the same import ruleset with the exact same paths
+
+```
+IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+CANNOTIMPORT
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
+```
+
+```
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+
+IMPORTRULE "[IMPORTBASE]/domain"
+CANNOTIMPORT
+    "[IMPORTBASE]/infrastructure"
+    "[IMPORTBASE]/data";
+```
+
 ## Wishlist for configuration
 
 * Support `DIRECTORY "src";` to define in which directories to run the application (where to start the file/dir walker)

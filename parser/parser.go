@@ -3,6 +3,7 @@ package parser
 import (
 	"flag"
 	"fmt"
+	"strings"
 
 	"git.bytecode.nl/foss/import-boundry-checker/keyword"
 	"git.bytecode.nl/foss/import-boundry-checker/lexer"
@@ -91,11 +92,23 @@ func (p *Parser) Parse() {
 				lexRes.Token, lexRes.Contents, p.currentKeyword, p.currentRule, p.Lang, p.Rules, p.Errors)
 		}
 	}
+
+	// Check for language and if there are any rules
 	if p.Lang == LangUnset {
 		p.logError("language has not been set")
 	}
 	if len(p.Rules) == 0 {
 		p.logError("no rules have been given")
+	}
+
+	// Replace the `[IMPORTBASE]` variable in the strings
+	importbaseVarString := fmt.Sprintf("[%s]", keyword.ImportBase) // Make it variable so we don't hardcode, all code depends on the keyword package
+	for i, rule := range p.Rules {
+		rule.RuleFor = strings.ReplaceAll(rule.RuleFor, importbaseVarString, p.ImportBase)
+		for j, ci := range rule.CannotImport {
+			rule.CannotImport[j] = strings.ReplaceAll(ci, importbaseVarString, p.ImportBase)
+		}
+		p.Rules[i] = rule
 	}
 
 	if DEBUG {
