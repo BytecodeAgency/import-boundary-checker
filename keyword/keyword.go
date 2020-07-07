@@ -6,4 +6,5 @@ const (
 	Lang         = Keyword("LANG")
 	ImportRule   = Keyword("IMPORTRULE")
 	CannotImport = Keyword("CANNOTIMPORT")
+	ImportBase   = Keyword("IMPORTBASE")
 )

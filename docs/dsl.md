@@ -8,6 +8,14 @@
 LANG "[Typescript/Go]";
 ```
 
+* The import base to be used can be defined using the syntax below. This path for Go projects is the same as the `go.mod`'s `module` value. This value is used for parsing files, you can see it as `IMPORTRULE`'s base, so given `IMPORTRULE [val]`, `[val]` would be equivalent to `[IMPORTBASE][RELATIVE PATH FROM CURRENT DIRECTORY]`
+
+```
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+```
+
+_This point is being discussed, to see if using `IMPORTRULE [relativepath]` instead of `IMPORTRULE [IMPORTBASE]/[relativepath]` would be a better solution_
+
 * Defining import rules uses the following syntax
 
 ```
@@ -45,7 +53,7 @@ CANNOTIMPORT
 * Support comments
 * Support multiple entries for `IMPORTRULE`
 * Support `CANNOTIMPORT "*";` or `CANNOTIMPORT;` to never allow any imports
-* Support "CANONLYIMPORT" (useful for domain/entity layers)
+* Support `CANONLYIMPORT` (useful for domain/entity layers)
 * Support exclusions for rules (usecase: prohibit `/some/module` but allow `/some/module/mocks`)
 * Support Regex in definitions
 * Support configuration of stdlib import rules
@@ -54,6 +62,7 @@ CANNOTIMPORT
 
 ```
 LANG "Go";
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
 
 IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
 CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";

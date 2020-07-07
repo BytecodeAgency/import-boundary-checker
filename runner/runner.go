@@ -21,13 +21,14 @@ func New(configFile string) Runner {
 func (r Runner) Run() { // TODO: Extract CLI part to separate package
 	// Lex and parse to get import ruleset
 	l := doLex(r.configFile)
-	p, lang := doParse(l)
-	f := doFilewalker(lang)
+	p := doParse(l)
+	f := doFilewalker(p.Lang)
 
 	// DEV
-	log(string(lang))
+	log("LANG: " + string(p.Lang))
+	log("IMPORTBASE: " + p.ImportBase)
 	log("\nIMPORTRULES:")
-	for _, pp := range p { // TODO: Move this print function to parser method
+	for _, pp := range p.Rules { // TODO: Move this print function to parser method
 		log(fmt.Sprintf("  ~> %s CANNOTIMPORT", pp.RuleFor)) // TODO: Create printer/logging package
 		for _, noimport := range pp.CannotImport {
 			log(fmt.Sprintf("     - %+v", noimport)) // TODO: Create printer/logging package
@@ -52,7 +53,7 @@ func doLex(input string) []lexer.Result {
 	return lexRes
 }
 
-func doParse(input []lexer.Result) ([]parser.Rule, parser.Language) {
+func doParse(input []lexer.Result) parser.Parser {
 	p := parser.New(input)
 	p.Parse()
 	if len(p.Errors) > 0 {
@@ -60,7 +61,7 @@ func doParse(input []lexer.Result) ([]parser.Rule, parser.Language) {
 		log("Parser returned errors:\n" + errStr)
 		fail("Parsing was not succesful")
 	}
-	return p.Rules, p.Lang
+	return p
 }
 
 func doFilewalker(lang parser.Language) []string {

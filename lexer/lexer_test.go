@@ -106,6 +106,7 @@ CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, []lexer.Result{
 			{token.STRING, "other/module/path/2"},
 			{token.SEMICOLON, ""}}},
 		{`LANG "Go";
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
 
 IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
 CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
@@ -117,6 +118,9 @@ CANNOTIMPORT
     "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`, []lexer.Result{
 			{token.KEYWORD_LANG, ""},
 			{token.STRING, "Go"},
+			{token.SEMICOLON, ""},
+			{token.KEYWORD_IMPORTBASE, ""},
+			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend"},
 			{token.SEMICOLON, ""},
 			{token.KEYWORD_IMPORTRULE, ""},
 			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"},

@@ -30,10 +30,11 @@ type Rule struct {
 
 type Parser struct {
 	// Input and output
-	input  []lexer.Result
-	Lang   Language
-	Rules  []Rule
-	Errors []error
+	input      []lexer.Result
+	Lang       Language
+	ImportBase string
+	Rules      []Rule
+	Errors     []error
 
 	// Intermediate
 	currentKeyword keyword.Keyword
@@ -42,8 +43,9 @@ type Parser struct {
 
 func New(input []lexer.Result) Parser {
 	return Parser{
-		input: input,
-		Lang:  LangUnset,
+		input:      input,
+		Lang:       LangUnset,
+		ImportBase: "",
 	}
 }
 
@@ -68,6 +70,8 @@ func (p *Parser) Parse() {
 			p.currentKeyword = keyword.ImportRule
 		case token.KEYWORD_CANNOTIMPORT:
 			p.currentKeyword = keyword.CannotImport
+		case token.KEYWORD_IMPORTBASE:
+			p.currentKeyword = keyword.ImportBase
 
 		// Handle expression end
 		case token.SEMICOLON:
@@ -101,8 +105,8 @@ func (p *Parser) Parse() {
 }
 
 func (p *Parser) endExpression() {
-	// Setting the language should not save the rule, so return
-	if p.currentKeyword == keyword.Lang {
+	// Setting the language or importbase should not save the rule, so return
+	if p.currentKeyword == keyword.Lang || p.currentKeyword == keyword.ImportBase {
 		return
 	}
 
@@ -123,6 +127,8 @@ func (p *Parser) saveStringToParserData(ruleContents string) {
 		p.currentRule.RuleFor = ruleContents
 	case keyword.CannotImport:
 		p.currentRule.CannotImport = append(p.currentRule.CannotImport, ruleContents)
+	case keyword.ImportBase:
+		p.ImportBase = ruleContents
 
 	// Set the language of the Parser instance
 	case keyword.Lang:

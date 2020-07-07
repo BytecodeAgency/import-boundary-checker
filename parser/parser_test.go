@@ -10,9 +10,10 @@ import (
 
 func TestParser_Parse_Correct(t *testing.T) {
 	tests := []struct {
-		input         string
-		expectedLang  parser.Language
-		expectedRules []parser.Rule
+		input              string
+		expectedLang       parser.Language
+		expectedImportBase string
+		expectedRules      []parser.Rule
 	}{
 		{`LANG "Go";
 
@@ -23,7 +24,30 @@ IMPORTRULE
   	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
 CANNOTIMPORT
 	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`, "Go",
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`,
+			"Go",
+			"",
+			[]parser.Rule{
+				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
+					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
+				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain",
+					[]string{
+						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
+						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
+			}},
+		{`LANG "Go";
+IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+
+IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
+CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+
+IMPORTRULE
+  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+CANNOTIMPORT
+	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
+    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`,
+			"Go",
+			"git.bytecode.nl/single-projects/youngpwr/platform-backend",
 			[]parser.Rule{
 				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
 					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
@@ -47,6 +71,7 @@ CANNOTIMPORT
 		assert.Empty(t, p.Errors)
 		assert.Equal(t, test.expectedLang, p.Lang)
 		assert.Equal(t, test.expectedRules, p.Rules)
+		assert.Equal(t, test.expectedImportBase, p.ImportBase)
 	}
 }
 

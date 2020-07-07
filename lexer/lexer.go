@@ -163,6 +163,8 @@ func (l *Lexer) recognizeKeywordFromBuffer() {
 		l.bufferTokenType = token.KEYWORD_IMPORTRULE
 	case string(keyword.CannotImport):
 		l.bufferTokenType = token.KEYWORD_CANNOTIMPORT
+	case string(keyword.ImportBase):
+		l.bufferTokenType = token.KEYWORD_IMPORTBASE
 	default:
 		l.logErrorAtPosition("recognizeKeywordFromBuffer")
 	}
