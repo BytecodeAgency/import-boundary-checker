@@ -24,7 +24,8 @@ func main() {
 	}
 
 	c := getConfigString(*configPath)
-	runner.Run(c)
+	r := runner.New(c)
+	r.Run()
 }
 
 func getConfigString(path string) string {
