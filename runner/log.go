@@ -1,4 +1,4 @@
-package main
+package runner // TODO: Create separate printer package
 
 import "fmt"
 

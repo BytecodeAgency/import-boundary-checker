@@ -19,6 +19,7 @@ _All CLI options are optional_
 ## Execution path
 
 * `main` reads the config file and parses CLI options
+* With the correct options `runner` is called, which executes the following steps
 * The config file is passed through `lexer`, then through `parser` (with importrules as output)
 * `filefinder` finds all files related to the language detected by `parser`
 * If language is Go, `langs/golistimports` takes the file list and outputs the a map of imports per module
