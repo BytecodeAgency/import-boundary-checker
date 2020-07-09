@@ -1,11 +1,5 @@
 LANG "Go";
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "git.bytecode.nl/foss/import-boundry-checker";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
-CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
-
-IMPORTRULE
-  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
-CANNOTIMPORT
-	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
+IMPORTRULE "[IMPORTBASE]/lexer"
+CANNOTIMPORT "[IMPORTBASE]/parser";

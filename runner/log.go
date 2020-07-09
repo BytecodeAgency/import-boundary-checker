@@ -1,6 +1,9 @@
 package runner // TODO: Create separate printer package
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 // TODO: Create standardized logging system
 // TODO: Add support for logging from Lexer and Parser
@@ -26,4 +29,9 @@ func fail(message string) {
 		log(line)
 	}
 	panic(message)
+}
+
+func succeed() {
+	log("No errors were found")
+	os.Exit(0)
 }

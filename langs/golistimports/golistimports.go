@@ -1,6 +1,7 @@
 package golistimports
 
 import (
+	"fmt"
 	"go/parser"
 	"go/token"
 	"io/ioutil"
@@ -8,7 +9,7 @@ import (
 	"strings"
 )
 
-func ExtractForFileList(relativeFilePaths []string) (map[string][]string, error) {
+func ExtractForFileList(relativeFilePaths []string, importbase string) (map[string][]string, error) {
 	imports := make(map[string][]string, len(relativeFilePaths))
 	for _, path := range relativeFilePaths {
 		abs, err := filepath.Abs(path)
@@ -23,7 +24,8 @@ func ExtractForFileList(relativeFilePaths []string) (map[string][]string, error)
 		if err != nil {
 			return nil, err
 		}
-		imports[path] = importsForFile
+		fullPath := fmt.Sprintf("%s/%s", importbase, path)
+		imports[fullPath] = importsForFile
 	}
 	return imports, nil
 }
