@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"git.bytecode.nl/foss/import-boundry-checker/filefinder"
+	"git.bytecode.nl/foss/import-boundry-checker/langs/golistimports"
 	"git.bytecode.nl/foss/import-boundry-checker/lexer"
 	"git.bytecode.nl/foss/import-boundry-checker/parser"
 )
@@ -22,7 +23,7 @@ func (r Runner) Run() { // TODO: Extract CLI part to separate package
 	// Lex and parse to get import ruleset
 	l := doLex(r.configFile)
 	p := doParse(l)
-	f := doFilewalker(p.Lang)
+	imps := doGetImports(p.Lang)
 
 	// DEV
 	log("LANG: " + string(p.Lang))
@@ -34,9 +35,12 @@ func (r Runner) Run() { // TODO: Extract CLI part to separate package
 			log(fmt.Sprintf("     - %+v", noimport)) // TODO: Create printer/logging package
 		}
 	}
-	log("\nFILES:")
-	for _, ff := range f {
-		log(fmt.Sprintf("  ~> %+v", ff)) // TODO: Create printer/logging package
+	log("\nIMPORTMAP:")
+	for file, imports := range imps {
+		log(fmt.Sprintf("  ~> %s", file)) // TODO: Create printer/logging package
+		for _, imp := range imports {
+			log(fmt.Sprintf("    -> %s", imp)) // TODO: Create printer/logging package
+		}
 	}
 
 }
@@ -64,14 +68,18 @@ func doParse(input []lexer.Result) parser.Parser {
 	return p
 }
 
-func doFilewalker(lang parser.Language) []string {
+func doGetImports(lang parser.Language) map[string][]string {
 	if lang == parser.LangGo {
-		files, err := filefinder.FindFilesWithExtInDir(".", []string{"go"}) // TODO: Make the directory editable via config
+		files, err := filefinder.FindFilesWithExtInDir(".", []string{"go"}) // TODO: Make the directory and extensions editable via config
 		if err != nil {
 			fail(err.Error())
 		}
-		return files
+		importmap, err := golistimports.ExtractForFileList(files)
+		if err != nil {
+			fail(err.Error())
+		}
+		return importmap
 	}
 	fail(fmt.Sprintf("language %s is not supported", lang))
-	return []string{} // Won't ever reach this code due to panic call one line up
+	return nil // Won't ever reach this code due to panic call one line up
 }
