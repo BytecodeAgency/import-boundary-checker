@@ -6,8 +6,21 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFileFinder_TestDir(t *testing.T) {
-	files, err := FindFilesWithExtInDir("./testdir", []string{"ext"})
+func TestFileFinder_TestDir_NoneExcluded(t *testing.T) {
+	files, err := FindFilesWithExtInDir("./testdir", []string{"ext"}, nil)
+	expected := []string{
+		"filename.ext",
+		"subdir/anotherfile.ext",
+		"subdir/file.ext",
+		"subdir/file_ignore.ext",
+		"subdir/subsubdir/lastlayer.ext",
+	}
+	assert.NoError(t, err)
+	assert.Equal(t, expected, files)
+}
+
+func TestFileFinder_TestDir_WithExcluded(t *testing.T) {
+	files, err := FindFilesWithExtInDir("./testdir", []string{"ext"}, []string{"_ignore.ext"})
 	expected := []string{
 		"filename.ext",
 		"subdir/anotherfile.ext",
@@ -19,7 +32,7 @@ func TestFileFinder_TestDir(t *testing.T) {
 }
 
 func TestFileFinder_NonExistantDir(t *testing.T) {
-	_, err := FindFilesWithExtInDir("./somenonexistantdirectory", []string{"ext"})
+	_, err := FindFilesWithExtInDir("./somenonexistantdirectory", []string{"ext"}, nil)
 	assert.Error(t, err)
 }
 

@@ -9,7 +9,7 @@ import (
 // Accepts arguments for relativeStartDir, which should include the './', f.e. './testdir'.
 // Extensions should not include the dot, so use `[]string{"ts", "tsx"}`, not `[]string{".ts", ".tsx"}`
 // Make sure there are no duplicate file extensions
-func FindFilesWithExtInDir(relativeStartDir string, exts []string) ([]string, error) {
+func FindFilesWithExtInDir(relativeStartDir string, includeExts []string, excludeExts []string) ([]string, error) {
 	var allFiles []string
 
 	// Create file tree
@@ -28,9 +28,9 @@ func FindFilesWithExtInDir(relativeStartDir string, exts []string) ([]string, er
 	// Only save files with the correct extension
 	var filesWithCorrectExt []string
 	for _, fileName := range allFiles {
-		for _, ext := range exts {
+		for _, ext := range includeExts {
 			fileExt := getFileExtension(fileName)
-			if fileExt == ext {
+			if fileExt == ext && shouldInclude(fileName, excludeExts) {
 				filesWithCorrectExt = append(filesWithCorrectExt, fileName)
 			}
 		}
@@ -72,4 +72,16 @@ func getFileExtension(filename string) string {
 	}
 	ext := filenameParts[len(filenameParts)-1]
 	return ext
+}
+
+func shouldInclude(filename string, excludeExts []string) bool {
+	if len(excludeExts) == 0 {
+		return true
+	}
+	for _, ext := range excludeExts {
+		if strings.HasSuffix(filename, ext) {
+			return false
+		}
+	}
+	return true
 }

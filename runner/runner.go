@@ -72,7 +72,7 @@ func doParse(input []lexer.Result) parser.Parser {
 
 func doGetImports(lang parser.Language, importbase string) map[string][]string {
 	if lang == parser.LangGo {
-		files, err := filefinder.FindFilesWithExtInDir(".", []string{"go"}) // TODO: Make the directory and extensions editable via config
+		files, err := filefinder.FindFilesWithExtInDir(".", []string{"go"}, []string{"_test.go"}) // TODO: Make the directory and extensions editable via config
 		if err != nil {
 			fail(err.Error())
 		}
