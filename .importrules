@@ -19,3 +19,47 @@ CANNOTIMPORT
     "[IMPORTBASE]/rulechecker"
     "[IMPORTBASE]/logging"
     "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/langs"
+CANNOTIMPORT
+        "[IMPORTBASE]/langs"
+        "[IMPORTBASE]/parser"
+        "[IMPORTBASE]/lexer"
+        "[IMPORTBASE]/examples"
+        "[IMPORTBASE]/filefinder"
+        "[IMPORTBASE]/rulechecker"
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/keyword"
+CANNOTIMPORT
+        "[IMPORTBASE]/langs"
+        "[IMPORTBASE]/parser"
+        "[IMPORTBASE]/lexer"
+        "[IMPORTBASE]/examples"
+        "[IMPORTBASE]/filefinder"
+        "[IMPORTBASE]/rulechecker"
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/filefinder"
+CANNOTIMPORT
+        "[IMPORTBASE]/langs"
+        "[IMPORTBASE]/parser"
+        "[IMPORTBASE]/lexer"
+        "[IMPORTBASE]/examples"
+        "[IMPORTBASE]/filefinder"
+        "[IMPORTBASE]/rulechecker"
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/token"
+CANNOTIMPORT
+        "[IMPORTBASE]/langs"
+        "[IMPORTBASE]/parser"
+        "[IMPORTBASE]/lexer"
+        "[IMPORTBASE]/examples"
+        "[IMPORTBASE]/filefinder"
+        "[IMPORTBASE]/rulechecker"
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner";
