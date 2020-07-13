@@ -3,7 +3,7 @@ package golistimports_test
 import (
 	"testing"
 
-	"git.bytecode.nl/foss/import-boundry-checker/langs/golistimports"
+	"github.com/BytecodeAgency/import-boundry-checker/langs/golistimports"
 	"github.com/stretchr/testify/assert"
 )
 

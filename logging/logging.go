@@ -3,8 +3,8 @@ package logging
 import (
 	"fmt"
 
-	"git.bytecode.nl/foss/import-boundry-checker/parser"
-	"git.bytecode.nl/foss/import-boundry-checker/rulechecker"
+	"github.com/BytecodeAgency/import-boundry-checker/parser"
+	"github.com/BytecodeAgency/import-boundry-checker/rulechecker"
 )
 
 type Entry struct {

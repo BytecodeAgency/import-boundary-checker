@@ -3,7 +3,7 @@ package rulechecker
 import (
 	"strings"
 
-	"git.bytecode.nl/foss/import-boundry-checker/parser"
+	"github.com/BytecodeAgency/import-boundry-checker/parser"
 )
 
 type ImportChart map[string][]string

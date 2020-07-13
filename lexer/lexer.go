@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"git.bytecode.nl/foss/import-boundry-checker/keyword"
-	"git.bytecode.nl/foss/import-boundry-checker/token"
+	"github.com/BytecodeAgency/import-boundry-checker/keyword"
+	"github.com/BytecodeAgency/import-boundry-checker/token"
 )
 
 var DEBUG = false

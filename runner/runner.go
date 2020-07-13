@@ -3,12 +3,12 @@ package runner
 import (
 	"fmt"
 
-	"git.bytecode.nl/foss/import-boundry-checker/filefinder"
-	"git.bytecode.nl/foss/import-boundry-checker/langs/golistimports"
-	"git.bytecode.nl/foss/import-boundry-checker/lexer"
-	"git.bytecode.nl/foss/import-boundry-checker/logging"
-	"git.bytecode.nl/foss/import-boundry-checker/parser"
-	"git.bytecode.nl/foss/import-boundry-checker/rulechecker"
+	"github.com/BytecodeAgency/import-boundry-checker/filefinder"
+	"github.com/BytecodeAgency/import-boundry-checker/langs/golistimports"
+	"github.com/BytecodeAgency/import-boundry-checker/lexer"
+	"github.com/BytecodeAgency/import-boundry-checker/logging"
+	"github.com/BytecodeAgency/import-boundry-checker/parser"
+	"github.com/BytecodeAgency/import-boundry-checker/rulechecker"
 )
 
 type Runner struct {

@@ -1,4 +1,4 @@
-module git.bytecode.nl/foss/import-boundry-checker
+module github.com/BytecodeAgency/import-boundry-checker
 
 go 1.14
 

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"git.bytecode.nl/foss/import-boundry-checker/keyword"
-	"git.bytecode.nl/foss/import-boundry-checker/lexer"
-	"git.bytecode.nl/foss/import-boundry-checker/token"
+	"github.com/BytecodeAgency/import-boundry-checker/keyword"
+	"github.com/BytecodeAgency/import-boundry-checker/lexer"
+	"github.com/BytecodeAgency/import-boundry-checker/token"
 )
 
 type Language string

@@ -3,8 +3,8 @@ package parser_test
 import (
 	"testing"
 
-	"git.bytecode.nl/foss/import-boundry-checker/lexer"
-	"git.bytecode.nl/foss/import-boundry-checker/parser"
+	"github.com/BytecodeAgency/import-boundry-checker/lexer"
+	"github.com/BytecodeAgency/import-boundry-checker/parser"
 	"github.com/stretchr/testify/assert"
 )
 

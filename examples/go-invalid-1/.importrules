@@ -1,5 +1,5 @@
 LANG "Go";
-IMPORTBASE "git.bytecode.nl/foss/import-boundry-checker/examples/go-invalid-1";
+IMPORTBASE "github.com/BytecodeAgency/import-boundry-checker/examples/go-invalid-1";
 
 IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT "[IMPORTBASE]/data";
