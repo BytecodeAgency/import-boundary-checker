@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/BytecodeAgency/import-boundry-checker/logging"
-	"github.com/BytecodeAgency/import-boundry-checker/runner"
+	"github.com/BytecodeAgency/import-boundary-checker/logging"
+	"github.com/BytecodeAgency/import-boundary-checker/runner"
 	"github.com/stretchr/testify/assert"
 )
 

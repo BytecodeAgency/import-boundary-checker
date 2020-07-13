@@ -1,5 +1,5 @@
 LANG "Go";
-IMPORTBASE "github.com/BytecodeAgency/import-boundry-checker";
+IMPORTBASE "github.com/BytecodeAgency/import-boundary-checker";
 
 IMPORTRULE "[IMPORTBASE]/lexer"
 CANNOTIMPORT

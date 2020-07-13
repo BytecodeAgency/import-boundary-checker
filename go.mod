@@ -1,4 +1,4 @@
-module github.com/BytecodeAgency/import-boundry-checker
+module github.com/BytecodeAgency/import-boundary-checker
 
 go 1.14
 

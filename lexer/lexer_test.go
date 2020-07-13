@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/BytecodeAgency/import-boundry-checker/lexer"
-	"github.com/BytecodeAgency/import-boundry-checker/token"
+	"github.com/BytecodeAgency/import-boundary-checker/lexer"
+	"github.com/BytecodeAgency/import-boundary-checker/token"
 )
 
 func TestLexer_SingleLine_Correct(t *testing.T) {

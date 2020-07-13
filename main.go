@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/BytecodeAgency/import-boundry-checker/logging"
-	"github.com/BytecodeAgency/import-boundry-checker/runner"
+	"github.com/BytecodeAgency/import-boundary-checker/logging"
+	"github.com/BytecodeAgency/import-boundary-checker/runner"
 )
 
 // TODO: Create cleaner entrypoint

@@ -3,8 +3,8 @@ package rulechecker_test
 import (
 	"testing"
 
-	"github.com/BytecodeAgency/import-boundry-checker/parser"
-	"github.com/BytecodeAgency/import-boundry-checker/rulechecker"
+	"github.com/BytecodeAgency/import-boundary-checker/parser"
+	"github.com/BytecodeAgency/import-boundary-checker/rulechecker"
 	"github.com/stretchr/testify/assert"
 )
 

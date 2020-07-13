@@ -3,7 +3,7 @@ package rulechecker
 import (
 	"strings"
 
-	"github.com/BytecodeAgency/import-boundry-checker/parser"
+	"github.com/BytecodeAgency/import-boundary-checker/parser"
 )
 
 type ImportChart map[string][]string

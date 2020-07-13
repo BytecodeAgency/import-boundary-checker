@@ -1,4 +1,4 @@
-# Import Boundry Checker DSL
+# Import boundary Checker DSL
 
 _By Bytecode Digital Agency B.V._
 
