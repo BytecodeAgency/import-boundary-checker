@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"git.bytecode.nl/foss/import-boundry-checker/logging"
 	"git.bytecode.nl/foss/import-boundry-checker/runner"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	// CLI flags
 	configPath := flag.String("config", ".importrules", "Configuration path to be used when building import rule set")
 	printHelp := flag.Bool("help", false, "Print CLI usage information")
+	verbose := flag.Bool("verbose", false, "Enable verbose output")
 	flag.Parse()
 
 	if *printHelp {
@@ -23,9 +25,17 @@ func main() {
 		os.Exit(0)
 	}
 
+	logger := logging.New(*verbose)
+
 	c := getConfigString(*configPath)
-	r := runner.New(c)
-	r.Run()
+	r := runner.New(c, logger)
+	failed := r.Run()
+
+	if failed {
+		os.Exit(1)
+	} else {
+		os.Exit(0)
+	}
 }
 
 func getConfigString(path string) string {

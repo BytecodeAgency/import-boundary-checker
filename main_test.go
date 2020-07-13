@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"git.bytecode.nl/foss/import-boundry-checker/logging"
 	"git.bytecode.nl/foss/import-boundry-checker/runner"
 	"github.com/stretchr/testify/assert"
 )
@@ -17,11 +18,11 @@ func TestEndToEnd(t *testing.T) {
 	assert.NoError(t, err)
 
 	tests := []struct {
-		dir           string
-		shouldSucceed bool
+		dir       string
+		shouldErr bool
 	}{
-		{"go-invalid-1", false},
-		{"go-valid-1", true},
+		{"go-invalid-1", true},
+		{"go-valid-1", false},
 	}
 	for _, test := range tests {
 
@@ -44,11 +45,14 @@ func TestEndToEnd(t *testing.T) {
 
 		// Create and run runner
 		// TODO: Add automated end-to-end tests
-		r := runner.New(config)
-		r.Run()
+		logger := logging.Logger{Verbose: false}
+		r := runner.New(config, &logger)
+		got := r.Run()
+
+		// Check if we got what we expected
+		assert.Equal(t, test.shouldErr, got)
 
 		// Change back to parent directory
 		err = os.Chdir(rootDir)
-		assert.NoError(t, err)
 	}
 }

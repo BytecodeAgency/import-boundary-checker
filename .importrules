@@ -2,4 +2,20 @@ LANG "Go";
 IMPORTBASE "git.bytecode.nl/foss/import-boundry-checker";
 
 IMPORTRULE "[IMPORTBASE]/lexer"
-CANNOTIMPORT "[IMPORTBASE]/parser";
+CANNOTIMPORT
+    "[IMPORTBASE]/parser"
+    "[IMPORTBASE]/langs"
+    "[IMPORTBASE]/examples"
+    "[IMPORTBASE]/filefinder"
+    "[IMPORTBASE]/rulechecker"
+    "[IMPORTBASE]/logging"
+    "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/parser"
+CANNOTIMPORT
+    "[IMPORTBASE]/langs"
+    "[IMPORTBASE]/examples"
+    "[IMPORTBASE]/filefinder"
+    "[IMPORTBASE]/rulechecker"
+    "[IMPORTBASE]/logging"
+    "[IMPORTBASE]/runner";
