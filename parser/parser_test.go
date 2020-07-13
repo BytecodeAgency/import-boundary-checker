@@ -17,47 +17,47 @@ func TestParser_Parse_Correct(t *testing.T) {
 	}{
 		{`LANG "Go";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
-CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
+CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE
-  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+  	"github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
-	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`,
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";`,
 			"Go",
 			"",
 			[]parser.Rule{
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
-					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain",
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
 			}},
 		{`LANG "Go";
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
-CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
+CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE
-  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+  	"github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
-	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`,
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";`,
 			"Go",
-			"git.bytecode.nl/single-projects/youngpwr/platform-backend",
+			"github.com/BytecodeAgency/someexampleproject/platform-backend",
 			[]parser.Rule{
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
-					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain",
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
 			}},
 		{`LANG "Go";
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE "[IMPORTBASE]/typings/entities"
 CANNOTIMPORT "[IMPORTBASE]";
@@ -67,14 +67,14 @@ CANNOTIMPORT
 	"[IMPORTBASE]/infrastructure"
     "[IMPORTBASE]/data";`,
 			"Go",
-			"git.bytecode.nl/single-projects/youngpwr/platform-backend",
+			"github.com/BytecodeAgency/someexampleproject/platform-backend",
 			[]parser.Rule{
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities",
-					[]string{"git.bytecode.nl/single-projects/youngpwr/platform-backend"}},
-				{"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain",
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure",
-						"git.bytecode.nl/single-projects/youngpwr/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
 			}},
 	}
 

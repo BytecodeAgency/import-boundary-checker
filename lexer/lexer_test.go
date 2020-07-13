@@ -106,32 +106,32 @@ CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, []lexer.Result{
 			{token.STRING, "other/module/path/2"},
 			{token.SEMICOLON, ""}}},
 		{`LANG "Go";
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
-CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
+CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE
-  	"git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+  	"github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
-	"git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";`, []lexer.Result{
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";`, []lexer.Result{
 			{token.KEYWORD_LANG, ""},
 			{token.STRING, "Go"},
 			{token.SEMICOLON, ""},
 			{token.KEYWORD_IMPORTBASE, ""},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend"},
 			{token.SEMICOLON, ""},
 			{token.KEYWORD_IMPORTRULE, ""},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"},
 			{token.KEYWORD_CANNOTIMPORT, ""},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend"},
 			{token.SEMICOLON, ""},
 			{token.KEYWORD_IMPORTRULE, ""},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend/domain"},
 			{token.KEYWORD_CANNOTIMPORT, ""},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"},
-			{token.STRING, "git.bytecode.nl/single-projects/youngpwr/platform-backend/data"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"},
+			{token.STRING, "github.com/BytecodeAgency/someexampleproject/platform-backend/data"},
 			{token.SEMICOLON, ""}}},
 	}
 	for _, test := range tests {

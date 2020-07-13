@@ -11,7 +11,7 @@ LANG "[Typescript/Go]";
 * The import base to be used can be defined using the syntax below. This path for Go projects is the same as the `go.mod`'s `module` value. This value is used for parsing files, you can see it as `IMPORTRULE`'s base, so given `IMPORTRULE [val]`, `[val]` would be equivalent to `[IMPORTBASE][RELATIVE PATH FROM CURRENT DIRECTORY]`
 
 ```
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 ```
 
 _This point is being discussed, to see if using `IMPORTRULE [relativepath]` instead of `IMPORTRULE [IMPORTBASE]/[relativepath]` would be a better solution_
@@ -49,14 +49,14 @@ CANNOTIMPORT
 * When defining import paths, you can use the `[IMPORTBASE]` in your string, that will later be replaced with the actual importbase, for example, the following two snippets will yield the same import ruleset with the exact same paths
 
 ```
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";
 ```
 
 ```
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
@@ -80,13 +80,13 @@ CANNOTIMPORT
 
 ```
 LANG "Go";
-IMPORTBASE "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/typings/entities"
-CANNOTIMPORT "git.bytecode.nl/single-projects/youngpwr/platform-backend";
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
+CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
-IMPORTRULE "git.bytecode.nl/single-projects/youngpwr/platform-backend/domain"
+IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/infrastructure"
-    "git.bytecode.nl/single-projects/youngpwr/platform-backend/data";
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
+    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";
 ```
