@@ -10,9 +10,9 @@ var (
 	logCont  = Color("\033[1;32m  ->\033[0m")  // Change to 37 for white
 )
 
-func Color(colorString string) func(message string) {
-	printer := func(message string) {
-		fmt.Printf("%5s: %s\n", colorString, message)
+func Color(colorString string) func(message string) string {
+	printer := func(message string) string {
+		return fmt.Sprintf("%5s: %s\n", colorString, message)
 	}
 	return printer
 }

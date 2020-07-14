@@ -1,7 +1,6 @@
 package main_test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -14,7 +13,6 @@ import (
 
 func TestEndToEnd(t *testing.T) {
 	rootDir, err := os.Getwd()
-	fmt.Println(rootDir)
 	assert.NoError(t, err)
 
 	tests := []struct {
@@ -30,16 +28,10 @@ func TestEndToEnd(t *testing.T) {
 		err := os.Chdir("./examples/" + test.dir)
 		assert.NoError(t, err)
 
-		//REMOVE
-		wd, err := os.Getwd()
-		assert.NoError(t, err)
-		fmt.Println(wd)
-
 		// Load config file
 		abs, err := filepath.Abs(".importrules")
 		assert.NoError(t, err)
 		configFile, err := ioutil.ReadFile(abs)
-		fmt.Println(string(configFile))
 		assert.NoError(t, err)
 		config := string(configFile)
 

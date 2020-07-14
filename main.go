@@ -31,6 +31,9 @@ func main() {
 	r := runner.New(c, logger)
 	failed := r.Run()
 
+	// Get and print the logs
+	fmt.Print(logger.Logs.String())
+
 	if failed {
 		os.Exit(1)
 	} else {
