@@ -82,11 +82,11 @@ CANNOTIMPORT
 LANG "Go";
 IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
-IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
-CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
+IMPORTRULE "[IMPORTBASE]/typings/entities"
+CANNOTIMPORT "[IMPORTBASE]";
 
-IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
+IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
-    "github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
-    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";
+    "[IMPORTBASE]/infrastructure"
+    "[IMPORTBASE]/data";
 ```
