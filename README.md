@@ -1,3 +1,5 @@
+<div style="text-align:center;">
+
 # Import Boundary Checker for Golang
 
 [![pipeline status](https://git.bytecode.nl/foss/import-boundry-checker/badges/master/pipeline.svg)](https://git.bytecode.nl/foss/import-boundry-checker/-/commits/master)
@@ -6,6 +8,8 @@
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/BytecodeAgency/import-boundary-checker)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/BytecodeAgency/import-boundary-checker)
 ![GitHub](https://img.shields.io/github/license/BytecodeAgency/import-boundary-checker)
+
+</div>
 
 ![import boundary checker](https://github.com/BytecodeAgency/import-boundary-checker/raw/master/examples/examples-go.gif)
 
