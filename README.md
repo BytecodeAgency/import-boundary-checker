@@ -85,7 +85,7 @@ You can read the full DSL specification in the [`docs/dsl.md`](docs/dsl.md) file
 
 In the [`examples`](/examples) directory of this repository, you can find some examples of the tool configured. In each directory, you will find a `.importrules` file with the import boundaries defined.
 
-An example for running this in CI through Docker can be found in the `Dockerfile` in the root of this repository.
+An example for running this in CI through Docker can be found in the [`Dockerfile`](Dockerfile) in the root of this repository.
 
 ## License and contribution
 
