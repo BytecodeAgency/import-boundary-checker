@@ -17,7 +17,7 @@ Import Boundary Checker is a tool to automatically check if import boundaries ar
 * **Mono-repositories with multiple microservices** where you don't allow services to import code from other microservices
 * **Layered architecture** where layers cannot import certain other layers
 
-Why is this tool useful, and why consider using it over alternative tools?
+#### Why is this tool useful, and why consider using it over alternative tools?
 
 * Import boundaries are checked **automatically** (meaning you don't have to spend time in code review on manually checking)
 * It is extremely **fast** (sub-second speeds with medium sized projects)
