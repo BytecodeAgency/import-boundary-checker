@@ -9,6 +9,22 @@
 
 ![import boundary checker](https://github.com/BytecodeAgency/import-boundary-checker/raw/master/examples/examples-go.gif)
 
+## About
+
+Import Boundary Checker is a tool to automatically check if import boundaries are violated or not. Examples of where this tool is useful:
+
+* **Hexagonal/clean architecture** where domain logic cannot import infrastructure code
+* **Mono-repositories with multiple microservices** where you don't allow services to import code from other microservices
+* **Layered architecture** where layers cannot import certain other layers
+
+Why is this tool useful, and why consider?
+
+* Import boundaries are checked **automatically** (meaning you don't have to spend time in code review on manually checking)
+* It is extremely **fast** (sub-second speeds with medium sized projects)
+* Configuration is **easy** (within a few minutes you can define forbidden imports for your projects and have everything set up)
+* The tool is **independent** (you don't need to change any production or testing code for the tool to work)
+* Usage of the tool requires **zero dependencies** (so no outside dependencies are needed for running the tool, only the source code of your project)
+
 ## Installation
 
 You will need Go 1.14+.
@@ -16,6 +32,8 @@ You will need Go 1.14+.
 ```sh
 go install github.com/BytecodeAgency/import-boundary-checker
 ```
+
+_Note: due to being in the alpha phase, the tool has only been tested on MacOS and Linux. Windows support is not guaranteed but will be added before the 1.0.0 release._
 
 ## Usage
 
