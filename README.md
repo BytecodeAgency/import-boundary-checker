@@ -19,7 +19,7 @@ go install github.com/BytecodeAgency/import-boundary-checker
 
 ## Usage
 
-After setting your configuration, you can invoke the tool by simply calling:
+After setting your configuration and, you can invoke the tool by simply calling:
 
 ```sh
 import-boundary-checker
@@ -36,7 +36,7 @@ You can use the following CLI options (they are all optional):
 
 The tool is configured using a domain specific language. Follow the steps below to create your configuration:
 
-0. Create a new configuration file, the default is `.importrules` in the root of the directory
+0. Create a new configuration file `.importrules` in the root directory of the project you want to check
 
 1. Set the correct language for your project (currently only Go is supported, Typescript/Javascript will be added next)
 
@@ -79,12 +79,13 @@ CANNOTIMPORT
     "[IMPORTBASE]/data"
 ```
 
-
 You can read the full DSL specification in the [`docs/dsl.md`](docs/dsl.md) file.
 
 ## Full examples
 
 In the [`examples`](/examples) directory of this repository, you can find some examples of the tool configured. In each directory, you will find a `.importrules` file with the import boundaries defined.
+
+An example for running this in CI through Docker can be found in the `Dockerfile` in the root of this repository.
 
 ## License and contribution
 
