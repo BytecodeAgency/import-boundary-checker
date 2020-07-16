@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -25,9 +26,14 @@ func main() {
 		os.Exit(0)
 	}
 
-	logger := logging.New(*verbose)
+	// Parse config file
+	c, err := getConfigString(*configPath)
+	if err != nil {
+		log.Fatalf("Error: %v\n", err)
+	}
 
-	c := getConfigString(*configPath)
+	// Create logger and run app
+	logger := logging.New(*verbose)
 	r := runner.New(c, logger)
 	failed := r.Run()
 
@@ -41,15 +47,14 @@ func main() {
 	}
 }
 
-func getConfigString(path string) string {
-	abs, err := filepath.Abs(path)
+func getConfigString(path string) (string, error) {
+	fullPath, err := filepath.Abs(path)
 	if err != nil {
-		panic(err)
+		return "", fmt.Errorf("parse absolute config path: %v", err)
 	}
-	fullPath := abs
 	config, err := ioutil.ReadFile(fullPath)
 	if err != nil {
-		panic(fmt.Sprintf("Could not read config file contents (%s), err %s", config, err))
+		return "", fmt.Errorf("read config file (%s): %v", path, err)
 	}
-	return string(config)
+	return string(config), nil
 }
