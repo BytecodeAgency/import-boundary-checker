@@ -31,7 +31,7 @@ func New(verbose bool) *Logger {
 }
 
 /*
- * Adders and settings for information
+ * Adders and setters for information
  */
 
 func (l *Logger) log(contents string) {

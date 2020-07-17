@@ -11,8 +11,6 @@ import (
 	"github.com/BytecodeAgency/import-boundary-checker/runner"
 )
 
-// TODO: Create cleaner entrypoint
-
 func main() {
 	// CLI flags
 	configPath := flag.String("config", ".importrules", "Configuration path to be used when building import rule set")
@@ -25,9 +23,18 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Create logger
 	logger := logging.New(*verbose)
 
-	c := getConfigString(*configPath)
+	// Parse config file
+	c, err := getConfigString(*configPath)
+	if err != nil {
+		logger.FailWithError("error loading config", err)
+		fmt.Print(logger.Logs.String())
+		os.Exit(1)
+	}
+
+	// Create runner and run application
 	r := runner.New(c, logger)
 	failed := r.Run()
 
@@ -41,15 +48,14 @@ func main() {
 	}
 }
 
-func getConfigString(path string) string {
-	abs, err := filepath.Abs(path)
+func getConfigString(path string) (string, error) {
+	fullPath, err := filepath.Abs(path)
 	if err != nil {
-		panic(err)
+		return "", fmt.Errorf("error parsing full config path: %+v", err)
 	}
-	fullPath := abs
 	config, err := ioutil.ReadFile(fullPath)
 	if err != nil {
-		panic(fmt.Sprintf("Could not read config file contents (%s), err %s", config, err))
+		return "", fmt.Errorf("error reading config file %s: %+v", path, err)
 	}
-	return string(config)
+	return string(config), nil
 }
