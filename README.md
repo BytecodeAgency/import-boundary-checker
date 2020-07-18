@@ -52,6 +52,8 @@ You can use the following CLI options (they are all optional):
 
 ## Configuration DSL
 
+**Note: the semicolons are required!**
+
 The tool is configured using a domain specific language. Follow the steps below to create your configuration:
 
 0. Create a new configuration file `.importrules` in the root directory of the project you want to check
