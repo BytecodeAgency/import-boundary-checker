@@ -20,7 +20,7 @@ func ExtractForFileList(relativeFilePaths []string, importbase string) (map[stri
 		if err != nil {
 			return nil, err
 		}
-		importsForFile, err := ExtractForSourceFile(string(source), abs)
+		importsForFile, err := ExtractForSourceFile(string(source), path)
 		if err != nil {
 			return nil, err
 		}
