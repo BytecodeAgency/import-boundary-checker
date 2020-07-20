@@ -98,7 +98,7 @@ func (p *Parser) Parse() {
 		p.logError("language has not been set")
 	}
 	if len(p.Rules) == 0 {
-		p.logError("no rules have been given")
+		p.logError("No rules have been found while parsing (maybe you forgot to use a semicolon?)")
 	}
 
 	// Replace the `[IMPORTBASE]` variable in the strings

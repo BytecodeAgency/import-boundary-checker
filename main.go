@@ -38,13 +38,13 @@ func main() {
 	r := runner.New(c, logger)
 	failed := r.Run()
 
-	// Get and print the logs, and exit
+	// Get and print the logs
+	fmt.Print(logger.Logs.String())
+
+	// Fail with correct exit code
 	if failed {
-		logger.Verbose = true
-		fmt.Print(logger.Logs.String())
 		os.Exit(1)
 	} else {
-		fmt.Print(logger.Logs.String())
 		os.Exit(0)
 	}
 }

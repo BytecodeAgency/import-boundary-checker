@@ -17,12 +17,13 @@ type Runner struct {
 	failed     bool
 }
 
-func New(configFile string, logger *logging.Logger) Runner {
-	return Runner{
+func New(configFile string, logger *logging.Logger) *Runner {
+	runner := Runner{
 		configFile: configFile,
 		logger:     logger,
 		failed:     false,
 	}
+	return &runner
 }
 
 func (r *Runner) Run() (failureOccurred bool) {
@@ -44,9 +45,6 @@ func (r *Runner) Run() (failureOccurred bool) {
 	if r.failed {
 		return r.failed
 	}
-
-	// Mark that checking was completed
-	r.logger.Completed = true
 
 	// Return if there are failures
 	return r.failed
@@ -102,7 +100,7 @@ func (r *Runner) doRuleCheck(rules []parser.Rule, imports map[string][]string) {
 	if success := rc.Check(); !success { // Means there are violations
 		r.setFailed()
 		r.logger.SetImportViolations(rc.Violations)
-		r.logger.FailWithMessage("Import violations were found")
+		r.logger.FailWithMessageCompleted("Import violations were found")
 		return
 	}
 	r.logger.Success()
