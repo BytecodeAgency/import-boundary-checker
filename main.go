@@ -41,6 +41,7 @@ func main() {
 	// Get and print the logs
 	fmt.Print(logger.Logs.String())
 
+	// Fail with correct exit code
 	if failed {
 		os.Exit(1)
 	} else {

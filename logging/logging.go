@@ -20,12 +20,14 @@ type Logger struct {
 	ImportChart      map[string][]string
 	ImportViolations []rulechecker.Violation
 	Verbose          bool
+	Completed        bool
 }
 
 func New(verbose bool) *Logger {
 	logger := Logger{
-		Verbose: verbose,
-		Logs:    strings.Builder{},
+		Verbose:   verbose,
+		Logs:      strings.Builder{},
+		Completed: false,
 	}
 	return &logger
 }
@@ -35,7 +37,10 @@ func New(verbose bool) *Logger {
  */
 
 func (l *Logger) log(contents string) {
-	_, _ = l.Logs.Write([]byte(contents)) // TODO: Handle error
+	_, err := l.Logs.Write([]byte(contents))
+	if err != nil {
+		panic(err) // Could not write to logs, TODO: Clean up
+	}
 }
 
 func (l *Logger) AddAlways(contents string) {
@@ -143,13 +148,20 @@ func (l *Logger) printVerboseOutput() {
 	l.printImportChart()
 }
 
-func (l *Logger) Print() {
+func (l *Logger) Print(completed bool) {
+	// Print output from logging entries (parser, lexer)
 	if l.Verbose {
 		l.printVerboseOutput()
 	} else {
 		l.printAlwaysOutput()
 	}
-	l.printImportViolations() // TODO: Only print if arrived at the checking stage, f.e. not if there was an error while parsing
+
+	// Print import violations
+	if completed {
+		l.printImportViolations()
+	} else {
+		l.log(logWarn("Import violations were not checked due to error (run with `-verbose` for debug info)"))
+	}
 }
 
 /*
@@ -157,17 +169,22 @@ func (l *Logger) Print() {
  */
 
 func (l *Logger) FailWithMessage(message string) {
-	l.Print()
+	l.Print(false)
+	l.log(logError("Error occurred: " + message))
+}
+
+func (l *Logger) FailWithMessageCompleted(message string) {
+	l.Print(true)
 	l.log(logError("Error occurred: " + message))
 }
 
 func (l *Logger) FailWithError(message string, err error) {
-	l.Print()
+	l.Print(false)
 	l.log(logError(fmt.Sprintf("Error occurred: %s (%s)", message, err.Error())))
 }
 
 func (l *Logger) FailWithErrors(message string, errs []error) {
-	l.Print()
+	l.Print(false)
 	l.log(logError("Error occurred: " + message))
 	for _, err := range errs {
 		l.log(logError(err.Error()))
@@ -175,7 +192,7 @@ func (l *Logger) FailWithErrors(message string, errs []error) {
 }
 
 func (l *Logger) Success() {
-	l.Print()
+	l.Print(true)
 	l.log(logInfo("No errors seem to have occurred!"))
 	l.log(logInfo("Exiting gracefully"))
 }

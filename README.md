@@ -73,6 +73,7 @@ IMPORTBASE "github.com/BytecodeAgency/example";
 3. Define the import boundaries, using
     `IMPORTRULE "[IMPORTBASE]{file you are defining forbidden imports for} CANNOTIMPORT "[IMPORTBASE]/{some module in project}" "[IMPORTBASE]/{another module in project}";`.
     Leaving out the `[IMPORTBASE]` allows you to define forbidden imports from the standard library or outside dependencies. Whitespace is ignored.
+    Note that when defining an import, importing from subdirectories within the given module will also cause errors (given `/domain`, will also block `/domain/user` and `/domain/user/models`, etc.)
 
 ```
 IMPORTRULE "[IMPORTBASE]/typings/entities"

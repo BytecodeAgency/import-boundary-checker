@@ -51,9 +51,9 @@ func New(input []lexer.Result) Parser {
 }
 
 func (p *Parser) logError(details string) {
-	err := fmt.Errorf("%s with data currentKeyword %s, currentRule %s",
-		details, p.currentKeyword, p.currentRule)
-	p.Errors = append(p.Errors, err)
+	err := fmt.Errorf("%s", details)
+	errDebug := fmt.Errorf("Debugdata: currentKeyword %s, currentRule %s", p.currentKeyword, p.currentRule)
+	p.Errors = append(p.Errors, errDebug, err)
 }
 
 func (p *Parser) Parse() {
@@ -98,7 +98,7 @@ func (p *Parser) Parse() {
 		p.logError("language has not been set")
 	}
 	if len(p.Rules) == 0 {
-		p.logError("no rules have been given")
+		p.logError("No rules have been found while parsing (maybe you forgot to use a semicolon?)")
 	}
 
 	// Replace the `[IMPORTBASE]` variable in the strings
@@ -135,7 +135,7 @@ func (p *Parser) saveStringToParserData(ruleContents string) {
 	switch p.currentKeyword {
 	case keyword.ImportRule:
 		if p.currentRule.RuleFor != "" {
-			p.logError(fmt.Sprintf("RuleFor has already been set to %s", p.currentRule.RuleFor))
+			p.logError(fmt.Sprintf("RuleFor has already been set to %s\n  -> Did you forget to add a semicolon at the end of your previous rule?", p.currentRule.RuleFor)) // TODO: Log this cleaner
 		}
 		p.currentRule.RuleFor = ruleContents
 	case keyword.CannotImport:

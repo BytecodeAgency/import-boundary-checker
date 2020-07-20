@@ -17,12 +17,13 @@ type Runner struct {
 	failed     bool
 }
 
-func New(configFile string, logger *logging.Logger) Runner {
-	return Runner{
+func New(configFile string, logger *logging.Logger) *Runner {
+	runner := Runner{
 		configFile: configFile,
 		logger:     logger,
 		failed:     false,
 	}
+	return &runner
 }
 
 func (r *Runner) Run() (failureOccurred bool) {
@@ -69,7 +70,7 @@ func (r *Runner) doParse(input []lexer.Result) parser.Parser {
 	p.Parse()
 	if len(p.Errors) > 0 {
 		r.setFailed()
-		r.logger.FailWithErrors("Lexing was not successful", p.Errors)
+		r.logger.FailWithErrors("Parsing was not successful", p.Errors)
 	}
 	r.logger.SetRules(p.Rules)
 	return p
@@ -99,7 +100,7 @@ func (r *Runner) doRuleCheck(rules []parser.Rule, imports map[string][]string) {
 	if success := rc.Check(); !success { // Means there are violations
 		r.setFailed()
 		r.logger.SetImportViolations(rc.Violations)
-		r.logger.FailWithMessage("Import violations were found")
+		r.logger.FailWithMessageCompleted("Import violations were found")
 		return
 	}
 	r.logger.Success()

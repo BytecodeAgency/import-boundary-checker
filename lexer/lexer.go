@@ -29,6 +29,7 @@ type Lexer struct {
 	buffer          []byte
 	bufferTokenType token.Token
 	position        int
+	line            int
 	currentChar     byte
 	nextChar        byte
 }
@@ -40,6 +41,7 @@ func New(input string) Lexer {
 		buffer:          []byte{},
 		bufferTokenType: token.UNSET,
 		position:        0,
+		line:            1,
 		currentChar:     input[0],
 		nextChar:        input[1],
 	}
@@ -53,6 +55,11 @@ func (l *Lexer) next() (done bool) {
 	// Return if we are at the end of the input
 	if l.position+1 == len(l.input) {
 		return false
+	}
+
+	// Increment line if we encounter a linebreak
+	if l.currentChar == '\n' {
+		l.line++
 	}
 
 	// Increment position and set characters
@@ -77,8 +84,9 @@ func (l *Lexer) finishBuffer() {
 }
 
 func (l *Lexer) logErrorAtPosition(errorLocation string) {
-	err := fmt.Errorf("could not parse %q (next char %q) at position %d, with buffer %s and tokentype '%s' (error location: %s)", l.currentChar, l.nextChar, l.position, string(l.buffer), l.bufferTokenType, errorLocation)
-	l.errors = append(l.errors, err)
+	errDebug := fmt.Errorf("debug info: buffer %s and tokentype '%s', absolute location %d (error location: %s)", string(l.buffer), l.bufferTokenType, l.position, errorLocation)
+	err := fmt.Errorf("could not parse %q (next char %q) on line %d", l.currentChar, l.nextChar, l.line)
+	l.errors = append(l.errors, err, errDebug)
 }
 
 func (l *Lexer) Format() string {
