@@ -20,13 +20,13 @@ type Logger struct {
 	ImportChart      map[string][]string
 	ImportViolations []rulechecker.Violation
 	Verbose          bool
-	Completed 		 bool
+	Completed        bool
 }
 
 func New(verbose bool) *Logger {
 	logger := Logger{
-		Verbose: verbose,
-		Logs:    strings.Builder{},
+		Verbose:   verbose,
+		Logs:      strings.Builder{},
 		Completed: false,
 	}
 	return &logger

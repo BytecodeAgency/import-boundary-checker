@@ -29,7 +29,7 @@ type Lexer struct {
 	buffer          []byte
 	bufferTokenType token.Token
 	position        int
-	line  			int
+	line            int
 	currentChar     byte
 	nextChar        byte
 }
@@ -41,7 +41,7 @@ func New(input string) Lexer {
 		buffer:          []byte{},
 		bufferTokenType: token.UNSET,
 		position:        0,
-		line: 			 1,
+		line:            1,
 		currentChar:     input[0],
 		nextChar:        input[1],
 	}
