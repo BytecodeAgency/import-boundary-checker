@@ -45,6 +45,9 @@ func (r *Runner) Run() (failureOccurred bool) {
 		return r.failed
 	}
 
+	// Mark that checking was completed
+	r.logger.Completed = true
+
 	// Return if there are failures
 	return r.failed
 }
@@ -69,7 +72,7 @@ func (r *Runner) doParse(input []lexer.Result) parser.Parser {
 	p.Parse()
 	if len(p.Errors) > 0 {
 		r.setFailed()
-		r.logger.FailWithErrors("Lexing was not successful", p.Errors)
+		r.logger.FailWithErrors("Parsing was not successful", p.Errors)
 	}
 	r.logger.SetRules(p.Rules)
 	return p

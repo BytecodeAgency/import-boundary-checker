@@ -20,12 +20,14 @@ type Logger struct {
 	ImportChart      map[string][]string
 	ImportViolations []rulechecker.Violation
 	Verbose          bool
+	Completed 		 bool
 }
 
 func New(verbose bool) *Logger {
 	logger := Logger{
 		Verbose: verbose,
 		Logs:    strings.Builder{},
+		Completed: false,
 	}
 	return &logger
 }
@@ -102,7 +104,11 @@ func (l *Logger) printImportChart() {
 
 func (l *Logger) printImportViolations() {
 	if l.ImportViolations == nil || len(l.ImportViolations) == 0 {
-		l.log(logInfo("No import violations found"))
+		if l.Completed {
+			l.log(logInfo("No import violations found"))
+		} else {
+			l.log(logWarn("Import violations were not checked due to error"))
+		}
 		return
 	}
 	for _, v := range l.ImportViolations {
