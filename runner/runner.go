@@ -38,7 +38,11 @@ func (r *Runner) Run() (failureOccurred bool) {
 	if r.failed {
 		return r.failed
 	}
+
 	imps := r.doGetImports(p.Lang, p.ImportBase)
+	if r.failed {
+		return r.failed
+	}
 
 	// Do rule check
 	r.doRuleCheck(p.Rules, imps)
@@ -87,7 +91,7 @@ func (r *Runner) doGetImports(lang parser.Language, importbase string) map[strin
 		r.logger.SetImportChart(importmap)
 		if err != nil {
 			r.setFailed()
-			r.logger.FailWithError("Could not run import map extractor", err)
+			r.logger.FailWithError("Could not run import map extractor, is your Go code compiling?", err)
 		}
 		return importmap
 	}

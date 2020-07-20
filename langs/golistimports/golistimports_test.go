@@ -56,7 +56,7 @@ func importer () int {
 `, []string{"github.com/bytecodeagency/typings/entities"}},
 	}
 	for _, test := range tests {
-		imports, err := golistimports.ExtractForSourceFile(test.input)
+		imports, err := golistimports.ExtractForSourceFile(test.input, "filename.go")
 		assert.NoError(t, err)
 		assert.Equal(t, test.expectedImports, imports)
 	}

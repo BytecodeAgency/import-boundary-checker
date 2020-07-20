@@ -20,7 +20,7 @@ func ExtractForFileList(relativeFilePaths []string, importbase string) (map[stri
 		if err != nil {
 			return nil, err
 		}
-		importsForFile, err := ExtractForSourceFile(string(source))
+		importsForFile, err := ExtractForSourceFile(string(source), abs)
 		if err != nil {
 			return nil, err
 		}
@@ -30,9 +30,9 @@ func ExtractForFileList(relativeFilePaths []string, importbase string) (map[stri
 	return imports, nil
 }
 
-func ExtractForSourceFile(source string) ([]string, error) {
+func ExtractForSourceFile(source string, filename string) ([]string, error) {
 	fset := token.NewFileSet()
-	file, err := parser.ParseFile(fset, "sourcefile.go", source, parser.ParseComments)
+	file, err := parser.ParseFile(fset, filename, source, parser.ParseComments)
 	if err != nil {
 		return []string{}, err
 	}
