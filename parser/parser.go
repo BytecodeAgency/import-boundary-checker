@@ -51,9 +51,9 @@ func New(input []lexer.Result) Parser {
 }
 
 func (p *Parser) logError(details string) {
-	err := fmt.Errorf("%s with data currentKeyword %s, currentRule %s",
-		details, p.currentKeyword, p.currentRule)
-	p.Errors = append(p.Errors, err)
+	err := fmt.Errorf("%s", details)
+	errDebug := fmt.Errorf("Debugdata: currentKeyword %s, currentRule %s", p.currentKeyword, p.currentRule)
+	p.Errors = append(p.Errors, errDebug, err)
 }
 
 func (p *Parser) Parse() {
@@ -135,7 +135,7 @@ func (p *Parser) saveStringToParserData(ruleContents string) {
 	switch p.currentKeyword {
 	case keyword.ImportRule:
 		if p.currentRule.RuleFor != "" {
-			p.logError(fmt.Sprintf("RuleFor has already been set to %s", p.currentRule.RuleFor))
+			p.logError(fmt.Sprintf("RuleFor has already been set to %s\n  -> Did you forget to add a semicolon at the end of your previous rule?", p.currentRule.RuleFor)) // TODO: Log this cleaner
 		}
 		p.currentRule.RuleFor = ruleContents
 	case keyword.CannotImport:
