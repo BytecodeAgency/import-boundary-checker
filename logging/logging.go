@@ -88,6 +88,11 @@ func (l *Logger) printRules() {
 		for _, cannotImport := range rule.CannotImport {
 			l.log(logCont(fmt.Sprintf("  - %s", cannotImport)))
 		}
+		l.log(logCont(fmt.Sprintf("%s allowed import exceptions:", rule.RuleFor)))
+		for _, allow := range rule.AllowImportExceptions {
+			l.log(logCont(fmt.Sprintf("  - %s", allow)))
+		}
+
 	}
 }
 

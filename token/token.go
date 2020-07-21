@@ -11,4 +11,5 @@ const (
 	KEYWORD_IMPORTBASE   = Token("kw_importbase")
 	KEYWORD_IMPORTRULE   = Token("kw_importrule")
 	KEYWORD_CANNOTIMPORT = Token("kw_cannotimport")
+	KEYWORD_ALLOW        = Token("kw_allow")
 )
