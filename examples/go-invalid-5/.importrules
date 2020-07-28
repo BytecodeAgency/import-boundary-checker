@@ -1,0 +1,8 @@
+LANG "Go";
+IMPORTBASE "github.com/BytecodeAgency/import-boundary-checker/examples/go-invalid-5";
+
+IMPORTRULE "[IMPORTBASE]"
+CANNOTIMPORT "[IMPORTBASE]";
+
+IMPORTRULE "[IMPORTBASE]/data"
+ALLOW "[IMPORTBASE]/data";
