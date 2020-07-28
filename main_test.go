@@ -21,6 +21,8 @@ func TestEndToEnd(t *testing.T) {
 	}{
 		{"go-invalid-1", true},
 		{"go-valid-1", false},
+		{"go-invalid-2", true},
+		{"go-valid-2", false},
 	}
 	for _, test := range tests {
 
