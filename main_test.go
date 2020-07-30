@@ -20,8 +20,9 @@ func TestEndToEnd(t *testing.T) {
 		shouldErr bool
 	}{
 		{"go-invalid-1", true},
-		{"go-valid-1", false},
 		{"go-invalid-2", true},
+		{"go-invalid-3", true},
+		{"go-valid-1", false},
 		{"go-valid-2", false},
 	}
 	for _, test := range tests {
