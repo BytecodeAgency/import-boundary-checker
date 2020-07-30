@@ -22,6 +22,7 @@ func TestEndToEnd(t *testing.T) {
 		{"go-invalid-1", true},
 		{"go-invalid-2", true},
 		{"go-invalid-3", true},
+		{"go-invalid-4", true},
 		{"go-valid-1", false},
 		{"go-valid-2", false},
 	}
@@ -45,7 +46,7 @@ func TestEndToEnd(t *testing.T) {
 		got := r.Run()
 
 		// Check if we got what we expected
-		assert.Equal(t, test.shouldErr, got)
+		assert.Equalf(t, test.shouldErr, got, "example directory %s", test.dir)
 
 		// Change back to parent directory
 		err = os.Chdir(rootDir)
