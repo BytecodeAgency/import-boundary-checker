@@ -1,11 +1,7 @@
 package user
 
-import "github.com/BytecodeAgency/import-boundary-checker/examples/go-valid-2/data/interactions"
+import "github.com/BytecodeAgency/import-boundary-checker/examples/go-valid-2/data/interactors"
 
-func Validate() error {
-	return interactions.Validate()
-}
-
-func GetTheUser() string {
-	return "admin"
+func PrintUsername(db interactors.DatabaseInteractor) string {
+	return db.Username()
 }
