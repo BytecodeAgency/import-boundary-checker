@@ -1,0 +1,17 @@
+language: go
+
+go:
+- 1.14.x
+- 1.15.x
+- master
+
+GO111MODULE: on
+
+before_script:
+- curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
+- golangci-lint --version
+
+script:
+- go build .
+- go test -v ./...
+- golangci-lint run --timeout 1h
