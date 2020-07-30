@@ -3,7 +3,6 @@ package govalid2
 import (
 	"fmt"
 
-	"github.com/BytecodeAgency/import-boundary-checker/examples/go-invalid-3/data/database"
 	"github.com/BytecodeAgency/import-boundary-checker/examples/go-invalid-3/domain/user"
 )
 
