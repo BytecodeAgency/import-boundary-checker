@@ -16,27 +16,27 @@ func TestRuleChecker_Check(t *testing.T) {
 	}{
 		{
 			true,
-			[]parser.Rule{parser.Rule{"package/domain", []string{"package/data"}, []string{}}},
+			[]parser.Rule{{RuleFor: "package/domain", CannotImport: []string{"package/data"}, AllowImportExceptions: []string{}}},
 			map[string][]string{"package/domain/file.go": {"fmt", "package/typings/entities"}},
 		},
 		{
 			true,
-			[]parser.Rule{parser.Rule{"package/domain", []string{"package/data"}, []string{"package/data/detail"}}},
+			[]parser.Rule{{RuleFor: "package/domain", CannotImport: []string{"package/data"}, AllowImportExceptions: []string{"package/data/detail"}}},
 			map[string][]string{"package/domain/file.go": {"fmt", "package/typings/entities", "package/data/detail"}},
 		},
 		{
 			false,
-			[]parser.Rule{parser.Rule{"package/domain", []string{"package/data", "ioutil"}, []string{}}},
+			[]parser.Rule{{RuleFor: "package/domain", CannotImport: []string{"package/data", "ioutil"}, AllowImportExceptions: []string{}}},
 			map[string][]string{"package/domain/file.go": {"fmt", "ioutil"}},
 		},
 		{
 			false,
-			[]parser.Rule{parser.Rule{"package/domain", []string{"package/data"}, []string{}}},
+			[]parser.Rule{{RuleFor: "package/domain", CannotImport: []string{"package/data"}, AllowImportExceptions: []string{}}},
 			map[string][]string{"package/domain/file.go": {"fmt", "package/data"}},
 		},
 		{
 			false,
-			[]parser.Rule{parser.Rule{"package/domain", []string{"package/data"}, []string{"package/data/detail"}}},
+			[]parser.Rule{{RuleFor: "package/domain", CannotImport: []string{"package/data"}, AllowImportExceptions: []string{"package/data/detail"}}},
 			map[string][]string{"package/domain/file.go": {"fmt", "package/typings/entities", "package/data/detail", "package/data"}},
 		},
 	}
