@@ -24,57 +24,82 @@ IMPORTRULE
   	"github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
 	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
-    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";`,
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/data"
+ALLOW
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure/detail";`,
 			"Go",
 			"",
 			[]parser.Rule{
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
-					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"},
+					[]string{}},
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
 						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
-						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"},
+					[]string{
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure/detail"}},
 			}},
 		{`LANG "Go";
 IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE "github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities"
-CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend";
+CANNOTIMPORT "github.com/BytecodeAgency/someexampleproject/platform-backend"
+ALLOW
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/platform-backend/detail";
 
 IMPORTRULE
   	"github.com/BytecodeAgency/someexampleproject/platform-backend/domain"
 CANNOTIMPORT
 	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure"
-    "github.com/BytecodeAgency/someexampleproject/platform-backend/data";`,
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/data"
+ALLOW
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/platform-backend/detail"
+	"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure/detail";`,
 			"Go",
 			"github.com/BytecodeAgency/someexampleproject/platform-backend",
 			[]parser.Rule{
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
-					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"},
+					[]string{
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/platform-backend/detail",
+					}},
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
 						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
-						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"},
+					[]string{
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/platform-backend/detail",
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure/detail",
+					}},
 			}},
 		{`LANG "Go";
 IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
 
 IMPORTRULE "[IMPORTBASE]/typings/entities"
-CANNOTIMPORT "[IMPORTBASE]";
+CANNOTIMPORT "[IMPORTBASE]"
+ALLOW "[IMPORTBASE]/data";
 
 IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
 	"[IMPORTBASE]/infrastructure"
-    "[IMPORTBASE]/data";`,
+	"[IMPORTBASE]/data"
+ALLOW
+	"[IMPORTBASE]/infrastructure/detail"
+	"[IMPORTBASE]/data/detail";`,
 			"Go",
 			"github.com/BytecodeAgency/someexampleproject/platform-backend",
 			[]parser.Rule{
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/typings/entities",
-					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"}},
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend"},
+					[]string{"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
 				{"github.com/BytecodeAgency/someexampleproject/platform-backend/domain",
 					[]string{
 						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure",
-						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"}},
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data"},
+					[]string{
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/infrastructure/detail",
+						"github.com/BytecodeAgency/someexampleproject/platform-backend/data/detail"}},
 			}},
 	}
 
