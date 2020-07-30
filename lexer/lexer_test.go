@@ -39,6 +39,31 @@ func TestLexer_SingleLine_Correct(t *testing.T) {
 			{token.STRING, "other/module/path/1"},
 			{token.STRING, "other/module/path/2"},
 			{token.SEMICOLON, ""}}},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2" ALLOW "other/module/path/1/sub";`, []lexer.Result{
+			{token.KEYWORD_LANG, ""},
+			{token.STRING, "Typescript"},
+			{token.SEMICOLON, ""},
+			{token.KEYWORD_IMPORTRULE, ""},
+			{token.STRING, "some/module/path"},
+			{token.KEYWORD_CANNOTIMPORT, ""},
+			{token.STRING, "other/module/path/1"},
+			{token.STRING, "other/module/path/2"},
+			{token.KEYWORD_ALLOW, ""},
+			{token.STRING, "other/module/path/1/sub"},
+			{token.SEMICOLON, ""}}},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2" ALLOW "other/module/path/1/sub" "other/module/path/2/sub";`, []lexer.Result{
+			{token.KEYWORD_LANG, ""},
+			{token.STRING, "Typescript"},
+			{token.SEMICOLON, ""},
+			{token.KEYWORD_IMPORTRULE, ""},
+			{token.STRING, "some/module/path"},
+			{token.KEYWORD_CANNOTIMPORT, ""},
+			{token.STRING, "other/module/path/1"},
+			{token.STRING, "other/module/path/2"},
+			{token.KEYWORD_ALLOW, ""},
+			{token.STRING, "other/module/path/1/sub"},
+			{token.STRING, "other/module/path/2/sub"},
+			{token.SEMICOLON, ""}}},
 	}
 	for _, test := range tests {
 		l := lexer.New(test.input)
@@ -63,6 +88,8 @@ func TestLexer_SingleLine_Failure(t *testing.T) {
 		{`"test1" "test2";`, false},
 		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1", "other/module/path/2";`, true},
 		{`LANG "Typescript"; IMPORTRULE "some/module/path" CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, false},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" ALLOW "other/module/path/1", "other/module/path/2";`, true},
+		{`LANG "Typescript"; IMPORTRULE "some/module/path" ALLOW "other/module/path/1" "other/module/path/2";`, false},
 	}
 	for _, test := range tests {
 		l := lexer.New(test.input)
@@ -104,6 +131,21 @@ CANNOTIMPORT "other/module/path/1" "other/module/path/2";`, []lexer.Result{
 			{token.KEYWORD_CANNOTIMPORT, ""},
 			{token.STRING, "other/module/path/1"},
 			{token.STRING, "other/module/path/2"},
+			{token.SEMICOLON, ""}}},
+		{`LANG "Typescript";
+IMPORTRULE "some/module/path"
+CANNOTIMPORT "other/module/path/1" "other/module/path/2"
+ALLOW "other/module/path/1/sub";`, []lexer.Result{
+			{token.KEYWORD_LANG, ""},
+			{token.STRING, "Typescript"},
+			{token.SEMICOLON, ""},
+			{token.KEYWORD_IMPORTRULE, ""},
+			{token.STRING, "some/module/path"},
+			{token.KEYWORD_CANNOTIMPORT, ""},
+			{token.STRING, "other/module/path/1"},
+			{token.STRING, "other/module/path/2"},
+			{token.KEYWORD_ALLOW, ""},
+			{token.STRING, "other/module/path/1/sub"},
 			{token.SEMICOLON, ""}}},
 		{`LANG "Go";
 IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";

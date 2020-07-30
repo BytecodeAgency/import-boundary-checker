@@ -25,8 +25,9 @@ const (
 )
 
 type Rule struct {
-	RuleFor      string
-	CannotImport []string
+	RuleFor               string
+	CannotImport          []string
+	AllowImportExceptions []string
 }
 
 type Parser struct {
@@ -71,6 +72,8 @@ func (p *Parser) Parse() {
 			p.currentKeyword = keyword.ImportRule
 		case token.KEYWORD_CANNOTIMPORT:
 			p.currentKeyword = keyword.CannotImport
+		case token.KEYWORD_ALLOW:
+			p.currentKeyword = keyword.Allow
 		case token.KEYWORD_IMPORTBASE:
 			p.currentKeyword = keyword.ImportBase
 
@@ -108,6 +111,9 @@ func (p *Parser) Parse() {
 		for j, ci := range rule.CannotImport {
 			rule.CannotImport[j] = strings.ReplaceAll(ci, importbaseVarString, p.ImportBase)
 		}
+		for j, ci := range rule.AllowImportExceptions {
+			rule.AllowImportExceptions[j] = strings.ReplaceAll(ci, importbaseVarString, p.ImportBase)
+		}
 		p.Rules[i] = rule
 	}
 
@@ -127,6 +133,9 @@ func (p *Parser) endExpression() {
 	if p.currentRule.RuleFor == "" || len(p.currentRule.CannotImport) == 0 {
 		p.logError("not all required rule data is set")
 	}
+	if p.currentRule.AllowImportExceptions == nil {
+		p.currentRule.AllowImportExceptions = []string{}
+	}
 	p.Rules = append(p.Rules, p.currentRule)
 	p.currentRule = Rule{} // Reset to default values
 }
@@ -140,6 +149,8 @@ func (p *Parser) saveStringToParserData(ruleContents string) {
 		p.currentRule.RuleFor = ruleContents
 	case keyword.CannotImport:
 		p.currentRule.CannotImport = append(p.currentRule.CannotImport, ruleContents)
+	case keyword.Allow:
+		p.currentRule.AllowImportExceptions = append(p.currentRule.AllowImportExceptions, ruleContents)
 	case keyword.ImportBase:
 		p.ImportBase = ruleContents
 

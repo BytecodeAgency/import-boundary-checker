@@ -64,6 +64,19 @@ CANNOTIMPORT
     "[IMPORTBASE]/data";
 ```
 
+* To allow certain sub paths within a previously forbidden import the ALLOW keyword can be used to define exceptions.
+
+```
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
+
+IMPORTRULE "[IMPORTBASE]/domain"
+CANNOTIMPORT
+    "[IMPORTBASE]/infrastructure"
+    "[IMPORTBASE]/data"
+ALLOW
+    "[IMPORTBASE]/data/interactions";
+```
+
 ## Wishlist for configuration
 
 * Support `DIRECTORY "src";` to define in which directories to run the application (where to start the file/dir walker)
