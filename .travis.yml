@@ -14,3 +14,4 @@ script:
 - go build .
 - go test -v ./...
 - golangci-lint run --timeout 1h
+- ./import-boundary-checker

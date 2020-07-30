@@ -9,6 +9,7 @@ build:
     - export GO111MODULE=on
   script:
     - go build .
+    - ./import-boundary-checker
 
 test:
   before_script:
