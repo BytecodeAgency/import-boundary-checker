@@ -73,8 +73,7 @@ IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
     "[IMPORTBASE]/infrastructure"
     "[IMPORTBASE]/data"
-ALLOW
-    "[IMPORTBASE]/data/interactions";
+ALLOW "[IMPORTBASE]/data/interactors";
 ```
 
 ## Wishlist for configuration
@@ -85,7 +84,6 @@ ALLOW
 * Support multiple entries for `IMPORTRULE`
 * Support `CANNOTIMPORT "*";` or `CANNOTIMPORT;` to never allow any imports
 * Support `CANONLYIMPORT` (useful for domain/entity layers)
-* Support exclusions for rules (usecase: prohibit `/some/module` but allow `/some/module/mocks`)
 * Support Regex in definitions
 * Support configuration of stdlib import rules
 
@@ -101,5 +99,6 @@ CANNOTIMPORT "[IMPORTBASE]";
 IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
     "[IMPORTBASE]/infrastructure"
-    "[IMPORTBASE]/data";
+    "[IMPORTBASE]/data"
+ALLOW "[IMPORTBASE]/data/interactors";
 ```

@@ -83,7 +83,17 @@ CANNOTIMPORT "[IMPORTBASE]" "fmt" "github.com/go-playground/validator/v10";
 IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
     "[IMPORTBASE]/infrastructure"
+    "[IMPORTBASE]/data";
+```
+
+4. When defining import boundaries, you can optionally add allowed imports, using `ALLLOW "{allowed module}" "allowed module"` (make sure you do this before the semicolon). This is useful f.e. when working with hexagonal architecture.
+
+```
+IMPORTRULE "[IMPORTBASE]/domain"
+CANNOTIMPORT
+    "[IMPORTBASE]/infrastructure"
     "[IMPORTBASE]/data"
+ALLOW "[IMPORTBASE]/data/interactors";
 ```
 
 **This will give the following configuration file**:
@@ -99,6 +109,7 @@ IMPORTRULE "[IMPORTBASE]/domain"
 CANNOTIMPORT
     "[IMPORTBASE]/infrastructure"
     "[IMPORTBASE]/data"
+ALLOW "[IMPORTBASE]/data/interactors";
 ```
 
 You can read the full DSL specification in the [`docs/dsl.md`](docs/dsl.md) file.
