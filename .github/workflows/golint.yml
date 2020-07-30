@@ -1,0 +1,13 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+  - name: Run golangci-lint
+    uses: golangci/golangci-lint-action@v1.2.1
+
