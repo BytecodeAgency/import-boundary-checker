@@ -1,5 +1,6 @@
 # Import Boundary Checker for Golang
 
+[![Build Status](https://travis-ci.org/BytecodeAgency/import-boundary-checker.svg?branch=master)](https://travis-ci.org/BytecodeAgency/import-boundary-checker)
 [![pipeline status](https://git.bytecode.nl/foss/import-boundry-checker/badges/master/pipeline.svg)](https://git.bytecode.nl/foss/import-boundry-checker/-/commits/master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BytecodeAgency_import-boundary-checker&metric=alert_status)](https://sonarcloud.io/dashboard?id=BytecodeAgency_import-boundary-checker)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4870797be10646d8ddd0/maintainability)](https://codeclimate.com/github/BytecodeAgency/import-boundary-checker/maintainability)
