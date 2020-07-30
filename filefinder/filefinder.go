@@ -51,7 +51,7 @@ func createFileTreeDirectory(basedir string, allFiles *[]string) error {
 				return err
 			}
 		} else { // Is file
-			filePath := fmt.Sprintf(genNewBasePath(basedir, fileOrDir.Name()))
+			filePath := genNewBasePath(basedir, fileOrDir.Name())
 			*allFiles = append(*allFiles, filePath)
 		}
 	}

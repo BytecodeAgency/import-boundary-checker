@@ -54,9 +54,7 @@ func (rc *RuleChecker) findForbiddenImportsForFilename(fileName string) []string
 	var forbiddenImports []string
 	for _, rule := range rc.Rules {
 		if strings.HasPrefix(fileName, rule.RuleFor) {
-			for _, forbiddenImport := range rule.CannotImport {
-				forbiddenImports = append(forbiddenImports, forbiddenImport)
-			}
+			forbiddenImports = append(forbiddenImports, rule.CannotImport...)
 		}
 	}
 	return forbiddenImports
@@ -66,9 +64,7 @@ func (rc *RuleChecker) findAllowedImportsForFilename(fileName string) []string {
 	var allowedImports []string
 	for _, rule := range rc.Rules {
 		if strings.HasPrefix(fileName, rule.RuleFor) {
-			for _, allowedImport := range rule.AllowImportExceptions {
-				allowedImports = append(allowedImports, allowedImport)
-			}
+			allowedImports = append(allowedImports, rule.AllowImportExceptions...)
 		}
 	}
 	return allowedImports

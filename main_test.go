@@ -48,5 +48,6 @@ func TestEndToEnd(t *testing.T) {
 
 		// Change back to parent directory
 		err = os.Chdir(rootDir)
+		assert.NoError(t, err)
 	}
 }
