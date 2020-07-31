@@ -18,7 +18,7 @@ test:
     - golangci-lint --version
   script:
     - golangci-lint run --timeout 1h
-    - go test -short $(go list ./... | grep -v /vendor/)
+    - go test -cover -short $(go list ./... | grep -v /vendor/)
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
