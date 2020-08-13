@@ -76,6 +76,21 @@ CANNOTIMPORT
 ALLOW "[IMPORTBASE]/data/interactors";
 ```
 
+* It is possible to extend certain rules within a deeper nested directory. The following example would not allow any imports from the project it self. This way all the imports that are valid need to be explicitly allowed.
+
+```
+IMPORTBASE "github.com/BytecodeAgency/someexampleproject/platform-backend";
+
+IMPORTRULE "[IMPORTBASE]"
+CANNOTIMPORT "[IMPORTBASE]";
+
+IMPORTRULE "[IMPORTBASE]/usecase"
+ALLOW "[IMPORTBASE]/domain";
+
+IMPORTRULE "[IMPORTBASE]/drivers"
+ALLOW "[IMPORTBASE]/domain" "[IMPORTBASE]/usecase";
+```
+
 ## Wishlist for configuration
 
 * Support `DIRECTORY "src";` to define in which directories to run the application (where to start the file/dir walker)

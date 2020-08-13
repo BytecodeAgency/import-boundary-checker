@@ -130,7 +130,7 @@ func (p *Parser) endExpression() {
 	}
 
 	// Validate that data for the rule is set
-	if p.currentRule.RuleFor == "" || len(p.currentRule.CannotImport) == 0 {
+	if p.currentRule.RuleFor == "" || (len(p.currentRule.CannotImport) == 0 && len(p.currentRule.AllowImportExceptions) == 0) {
 		p.logError("not all required rule data is set")
 	}
 	if p.currentRule.AllowImportExceptions == nil {

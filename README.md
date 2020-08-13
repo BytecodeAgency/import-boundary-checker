@@ -112,6 +112,27 @@ CANNOTIMPORT
 ALLOW "[IMPORTBASE]/data/interactors";
 ```
 
+5. When working with hexagonal architecture it might be intereseting to block all imports at the root of the project and allow the specific imports in the more specific sub folders.
+
+```
+LANG "Go";
+IMPORTBASE "github.com/BytecodeAgency/example"
+
+IMPORTRULE "[IMPORTBASE]"
+CANNOTIMPORT "[IMPORTBASE]";
+
+IMPORTRULE "[IMPORTBASE]/entities"
+CANNOTIMPORT "fmt"
+
+IMPORTRULE "[IMPORTBASE]/interactors"
+ALLOW "[IMPORTBASE]/entities";
+
+IMPORTRULE "[IMPORTBASE]/data"
+ALLOW 
+    "[IMPORTBASE]/entities"
+    "[IMPORTBASE]/interactors";
+```
+
 You can read the full DSL specification in the [`docs/dsl.md`](docs/dsl.md) file.
 
 ## Full examples

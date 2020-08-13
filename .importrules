@@ -1,24 +1,28 @@
 LANG "Go";
 IMPORTBASE "github.com/BytecodeAgency/import-boundary-checker";
 
-IMPORTRULE "[IMPORTBASE]/lexer"
-CANNOTIMPORT
-    "[IMPORTBASE]/parser"
-    "[IMPORTBASE]/langs"
-    "[IMPORTBASE]/examples"
-    "[IMPORTBASE]/filefinder"
-    "[IMPORTBASE]/rulechecker"
+IMPORTRULE "[IMPORTBASE]"
+CANNOTIMPORT "[IMPORTBASE]"
+ALLOW
     "[IMPORTBASE]/logging"
     "[IMPORTBASE]/runner";
 
+
+IMPORTRULE "[IMPORTBASE]/lexer"
+CANNOTIMPORT
+    "[IMPORTBASE]/logging"
+ALLOW
+    "[IMPORTBASE]/token"
+    "[IMPORTBASE]/keyword";
+
 IMPORTRULE "[IMPORTBASE]/parser"
 CANNOTIMPORT
-    "[IMPORTBASE]/langs"
-    "[IMPORTBASE]/examples"
-    "[IMPORTBASE]/filefinder"
-    "[IMPORTBASE]/rulechecker"
     "[IMPORTBASE]/logging"
-    "[IMPORTBASE]/runner";
+    "[IMPORTBASE]/runner"
+ALLOW
+    "[IMPORTBASE]/token"
+    "[IMPORTBASE]/keyword"
+    "[IMPORTBASE]/lexer";
 
 IMPORTRULE "[IMPORTBASE]/langs"
 CANNOTIMPORT
@@ -33,25 +37,20 @@ CANNOTIMPORT
 
 IMPORTRULE "[IMPORTBASE]/keyword"
 CANNOTIMPORT
-        "[IMPORTBASE]/langs"
-        "[IMPORTBASE]/parser"
-        "[IMPORTBASE]/lexer"
-        "[IMPORTBASE]/examples"
-        "[IMPORTBASE]/filefinder"
-        "[IMPORTBASE]/rulechecker"
         "[IMPORTBASE]/logging"
         "[IMPORTBASE]/runner";
 
 IMPORTRULE "[IMPORTBASE]/filefinder"
 CANNOTIMPORT
-        "[IMPORTBASE]/langs"
-        "[IMPORTBASE]/parser"
-        "[IMPORTBASE]/lexer"
-        "[IMPORTBASE]/examples"
-        "[IMPORTBASE]/filefinder"
-        "[IMPORTBASE]/rulechecker"
         "[IMPORTBASE]/logging"
         "[IMPORTBASE]/runner";
+
+IMPORTRULE "[IMPORTBASE]/rulechecker"
+CANNOTIMPORT
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner"
+ALLOW
+        "[IMPORTBASE]/parser";
 
 IMPORTRULE "[IMPORTBASE]/token"
 CANNOTIMPORT
@@ -64,22 +63,44 @@ CANNOTIMPORT
         "[IMPORTBASE]/logging"
         "[IMPORTBASE]/runner";
 
+IMPORTRULE "[IMPORTBASE]/logging"
+CANNOTIMPORT
+        "[IMPORTBASE]/logging"
+        "[IMPORTBASE]/runner"
+ALLOW
+        "[IMPORTBASE]/rulechecker"
+        "[IMPORTBASE]/parser";
+
+IMPORTRULE "[IMPORTBASE]/runner"
+ALLOW
+        "[IMPORTBASE]/parser"
+        "[IMPORTBASE]/checker"
+        "[IMPORTBASE]/filefinder"
+        "[IMPORTBASE]/langs"
+        "[IMPORTBASE]/lexer"
+        "[IMPORTBASE]/rulechecker";
+
+
 IMPORTRULE "[IMPORTBASE]/examples/go-invalid-1"
-CANNOTIMPORT "[IMPORTBASE]/examples"
 ALLOW "[IMPORTBASE]/examples/go-invalid-1";
 
 IMPORTRULE "[IMPORTBASE]/examples/go-invalid-2"
-CANNOTIMPORT "[IMPORTBASE]/examples"
 ALLOW "[IMPORTBASE]/examples/go-invalid-2";
 
 IMPORTRULE "[IMPORTBASE]/examples/go-invalid-3"
-CANNOTIMPORT "[IMPORTBASE]/examples"
 ALLOW "[IMPORTBASE]/examples/go-invalid-3";
 
+IMPORTRULE "[IMPORTBASE]/examples/go-invalid-4"
+ALLOW "[IMPORTBASE]/examples/go-invalid-4";
+
+IMPORTRULE "[IMPORTBASE]/examples/go-invalid-5"
+ALLOW "[IMPORTBASE]/examples/go-invalid-5";
+
 IMPORTRULE "[IMPORTBASE]/examples/go-valid-1"
-CANNOTIMPORT "[IMPORTBASE]/examples"
 ALLOW "[IMPORTBASE]/examples/go-valid-1";
 
 IMPORTRULE "[IMPORTBASE]/examples/go-valid-2"
-CANNOTIMPORT "[IMPORTBASE]/examples"
 ALLOW "[IMPORTBASE]/examples/go-valid-2";
+
+IMPORTRULE "[IMPORTBASE]/examples/go-valid-3"
+ALLOW "[IMPORTBASE]/examples/go-valid-3";
